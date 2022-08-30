@@ -1,0 +1,12 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/sangkkim/42Seoul/42cursus/philosophers/philo_bonus'
+make: Leaving directory `/Users/sangkkim/42Seoul/42cursus/philosophers/philo_bonus'
+ 
+make: *** No rule to make target `main.c', needed by `philo_bonus'.
+make: *** No rule to make target `init_simulation.c', needed by `philo_bonus'.
+make: *** No rule to make target `observer_main.c', needed by `philo_bonus'.
+make: *** No rule to make target `philo_main.c', needed by `philo_bonus'.
+make: *** No rule to make target `philo_action.c', needed by `philo_bonus'.
+make: *** No rule to make target `utils2_bonus.c', needed by `philo_bonus'.
+make: *** No rule to make target `philosopher_bonus.h', needed by `philo_bonus'.
+
