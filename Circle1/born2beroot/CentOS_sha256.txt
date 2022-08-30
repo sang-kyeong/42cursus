@@ -1,0 +1,3 @@
+b898822822fd5ffacc8da074adcd6b882ac0f73a269111b15871e16c2ce9d774  CentOS-7-aarch64-Everything-2009.iso
+3c53c686d72649adc9afde1865b3f7fa79212966f387634eaf249a66fccfec53  CentOS-7-aarch64-NetInstall-2009.iso
+1bef71329e51f9bed12349aa026b3fe0c4bb27db729399a3f9addae22848da9b  CentOS-7-aarch64-Minimal-2009.iso
