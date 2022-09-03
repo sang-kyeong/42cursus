@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 12:34:58 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/08/27 16:26:10 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/09/03 15:38:20 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 void	*philo_main(void *arg);
 
-int		parse_arg(t_arg *arg, int argc, char **argv);
-int		init_values(t_sim *sim);
+int		parse_arg(t_sim *sim, int argc, char **argv);
+int		init_values(t_sim *sim, t_philo *philos, t_fork *forks);
 void	init_philo(t_philo *philo, t_sim *sim, size_t id);
 int		create_philos(t_sim *sim);
 
@@ -37,30 +37,27 @@ int	init_sim(t_sim *sim, int argc, char **argv)
 	return (0);
 }
 
-int	parse_arg(t_arg *arg, int argc, char **argv)
+int	parse_arg(t_sim sim, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (-1);
-	if (parse_uint((unsigned int *)&arg->philo_num, argv[1]) < 0 \
+	if (parse_uint((unsigned int *)&sim->philo_num, argv[1]) < 0 \
 		|| arg->philo_num == 0)
 		return (-1);
-	if (parse_uint((unsigned int *)&arg->time_to_die, argv[2]) < 0)
+	if (parse_uint((unsigned int *)&sim->time_to_die, argv[2]) < 0)
 		return (-1);
-	if (parse_uint((unsigned int *)&arg->time_to_eat, argv[3]) < 0)
+	if (parse_uint((unsigned int *)&sim->time_to_eat, argv[3]) < 0)
 		return (-1);
-	if (parse_uint((unsigned int *)&arg->time_to_sleep, argv[4]) < 0)
+	if (parse_uint((unsigned int *)&sim->time_to_sleep, argv[4]) < 0)
 		return (-1);
-	if (argc == 5)
+	if (argc == 6)
 	{
-		arg->option = 0;
-		arg->must_eat = 0;
-	}
-	else
-	{
-		arg->option = 1;
-		if (parse_uint((unsigned int *)&arg->must_eat, argv[5]) < 0)
+		sim->mode = until_done;
+		if (parse_uint((unsigned int *)&sim->must_eat, argv[5]) < 0)
 			return (-1);
 	}
+	if (sim->philo_num % 2 == 1 && 2 * sim->time_to_eat > sim->time_to_sleep)
+		sim->time_to_think = 2 * sim->time_to_eat - sim->time_to_sleep;
 	return (0);
 }
 
@@ -68,7 +65,7 @@ int	init_values(t_sim *sim)
 {
 	size_t	i;
 
-	sim->forks = malloc(sim->arg.philo_num * sizeof(pthread_mutex_t));
+	sim->forks = malloc(sim->arg.philo_num * sizeof(fork_t));
 	if (sim->forks == NULL)
 		return (-1);
 	sim->philos = malloc(sim->arg.philo_num * sizeof(t_philo));
@@ -84,9 +81,7 @@ int	init_values(t_sim *sim)
 			while (i--)
 				pthread_mutex_destroy(&sim->forks[i]);
 			pthread_mutex_destroy(&sim->mutex);
-			free(sim->forks);
-			free(sim->philos);
-			return (-1);
+			return (free(sim->forks), free(sim->philos), -1);
 		}
 		init_philo(&sim->philos[i], sim, i + 1);
 		i++;
@@ -99,14 +94,19 @@ void	init_philo(t_philo *philo, t_sim *sim, size_t id)
 	philo->id = id;
 	philo->deadline = sim->arg.time_to_die;
 	philo->eat_cnt = 0;
+	philo->alive = 1;
+	if (sim->philo_num % 2 == 1 && id == sim->philo_num)
+		philo_until = 3 * sim->time_to_eat / 2;
+	else if (id % 2 == 1)
+		philo_until = 0;
+	else
+		philo_until = sim->time_to_eat / 2;
 	philo->right_fork = &(sim->forks[id - 1]);
 	philo->left_fork = &(sim->forks[id % sim->arg.philo_num]);
-	philo->mutex = &sim->mutex;
-	philo->arg = sim->arg;
 	philo->sim = sim;
 }
 
-int	create_philos(t_sim *sim)
+int	create_philos(t_simt_philo *philos)
 {
 	size_t	i;
 

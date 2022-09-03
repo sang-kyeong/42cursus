@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   observer_main.c                                    :+:      :+:    :+:   */
+/*   monitor_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:49:42 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/08/26 15:44:06 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/09/03 13:42:28 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 #include <stdio.h>
 #include "philo.h"
 
-void	philo_echo_die(size_t time, size_t id);
+// philo_main.c
+void	philo_echo(size_t time, size_t id, char *status);
 
-int		check_deadlock(t_sim *sim, size_t time);
-void	terminate_philos(t_sim *sim);
+// monitoe_main.c [here]
+int		check_philos(t_sim *sim, t_philo *philos, size_t time);
+void	terminate_philos(t_philo *philos, size_t philo_num);
 
-void	observer_main(t_sim *sim)
+void	monitor_main(t_sim *sim, t_philo *philos)
 {
 	static size_t	last_time;
 	size_t			time;
@@ -32,7 +34,7 @@ void	observer_main(t_sim *sim)
 		{
 			if (!sim->progress)
 				break ;
-			else if (check_deadlock(sim, time) < 0)
+			else if (check_philos(sim, philos, time) < 0)
 				break ;
 		}
 		pthread_mutex_unlock(&sim->mutex);
@@ -43,37 +45,37 @@ void	observer_main(t_sim *sim)
 	terminate_philos(sim);
 }
 
-int	check_deadlock(t_sim *sim, size_t time)
+int	check_philos(t_sim *sim, t_philos *philos, size_t time)
 {
-	size_t	id;
+	size_t	i;
 
-	id = 0;
-	while (id < sim->arg.philo_num)
+	i = 0;
+	while (id < sim->philo_num)
 	{
-		if (time >= sim->philos[id].deadline)
+		if (time >= philos[i].deadline)
 		{
-			philo_echo_die(time, id + 1);
+			philo_echo(time, i + 1, " died\n");
 			sim->progress = 0;
 			return (-1);
 		}
-		id++;
+		i++;
 	}
 	return (0);
 }
 
-void	terminate_philos(t_sim *sim)
+void	terminate_philos(t_philo *philos, size_t philo_num)
 {
-	size_t	id;
+	size_t	i;
 
-	if (sim->arg.philo_num == 1)
-		pthread_detach(sim->philos[0].tid);
+	if (philo_num == 1)
+		pthread_detach(philos[0].tid);
 	else
 	{
-		id = 0;
-		while (id < sim->arg.philo_num)
+		i = 0;
+		while (i < philo_num)
 		{
-			pthread_join(sim->philos[id].tid, NULL);
-			id++;
+			pthread_join(philos[i].tid, NULL);
+			i++;
 		}
 	}
 }

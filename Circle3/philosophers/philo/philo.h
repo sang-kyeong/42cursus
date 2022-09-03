@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:05:53 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/08/26 15:37:38 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/09/03 13:41:49 by sangkkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,11 @@
 # define PHILO_H
 
 # include <stddef.h>
-# include <pthread.h>
-# include <sys/time.h>
 
-typedef struct s_arg	t_arg;
-typedef struct s_philo	t_philo;
-typedef struct s_sim	t_sim;
+# include "fork.h"
+# include "sim.h"
 
-struct s_arg
-{
-	size_t				philo_num;
-	size_t				time_to_die;
-	size_t				time_to_eat;
-	size_t				time_to_sleep;
-	int					option;
-	size_t				must_eat;
-};
+typedef struct s_philo		t_philo;
 
 struct s_philo
 {
@@ -37,23 +26,10 @@ struct s_philo
 	size_t				deadline;
 	size_t				eat_cnt;
 	int					alive;
-	pthread_mutex_t		*right_fork;
-	pthread_mutex_t		*left_fork;
-	pthread_mutex_t		*mutex;
-	struct timeval		start_time;
-	t_arg				arg;
-	pthread_t			tid;
+	size_t				until;
+	t_fork				*right_fork;
+	t_fork				*left_fork;
 	t_sim				*sim;
-};
-
-struct s_sim
-{
-	t_arg				arg;
-	long long			progress;
-	struct timeval		start_time;
-	pthread_mutex_t		mutex;
-	pthread_mutex_t		*forks;
-	t_philo				*philos;
 };
 
 // utils.c
