@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:16:46 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/09/02 23:03:52 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/10/11 13:25:54 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,86 @@
 #include <stdio.h>
 #include "philo.h"
 
-// philo_action.c
-void	philo_take_fork(t_philo *philo, pthread_mutex_t *fork);
-void	philo_eat(t_philo *philo);
-void	philo_sleep(t_philo *philo);
-void	philo_think(t_philo *philo);
-
 // philo_main.c [here]
-void	philo_wait(t_philo *philo);
+static int	philo_init(t_philo *philo);
+static void	philo_clean(t_philo *philo);
+int			philo_wait(t_philo *philo);
+
+// philo_action.c
+int			philo_take_fork(t_philo *philo);
+int			philo_eat(t_philo *philo);
+int			philo_sleep(t_philo *philo);
+int			philo_think(t_philo *philo);
 
 void	*philo_main(void *arg)
 {
+	int			err;
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&philo->sim->mutex);
-	pthread_mutex_unlock(&philo->sim->mutex);
-	philo_wait(philo);
-	while (philo->alive)
+	err = philo_init(philo);
+	while (err == 0)
 	{
-		philo_take_fork(philo, philo->right_fork);
-		philo_take_fork(philo, philo->left_fork);
-		philo_eat(philo);
-		philo_wait(philo);
-		philo_sleep(philo);
-		philo_wait(philo);
-		philo_think(philo);
-		philo_wait(philo->sim->time_to_think);
+		err = philo_take_fork(philo);
+		if (err == 0)
+			err = philo_eat(philo);
+		if (err == 0)
+			err = philo_sleep(philo);
+		if (err == 0)
+			err = philo_think(philo);
 	}
+	philo_clean(philo);
 	return (0);
 }
 
-void	philo_wait(t_philo *philo)
+static int	philo_init(t_philo *philo)
 {
-	while (philo->alive && get_time(philo->sim->start_time) < philo->until)
-	{
-		usleep(300);
-		pthread_mutex_lock(&philo->sim->mutex);
-		philo->alive = philo->sim->progress > 0;
-		pthread_mutex_unlock(&philo->sim->mutex);
-	}
+	int		err;
+
+	pthread_mutex_lock(&(philo->sim->mutex));
+	pthread_mutex_unlock(&(philo->sim->mutex));
+	err = philo_wait(philo);
+	return (err);
 }
 
-void	philo_echo(size_t time, size_t id, char *status)
+static void	philo_clean(t_philo *philo)
 {
-	put_unbr(time);
-	put_str(" ");
-	put_unbr(id);
-	put_str(status);
+	if (philo->right_hand)
+		pthread_mutex_unlock(&(philo->right_fork->mutex));
+	if (philo->left_hand)
+		pthread_mutex_unlock(&(philo->left_fork->mutex));
+}
+
+int	philo_wait(t_philo *philo)
+{
+	size_t	until;
+	int		err;
+
+	err = 0;
+	if (philo->wait_time <= 0)
+		return (err);
+	until = get_ms_from(philo->sim->start_time) + philo->wait_time;
+	while (err == 0)
+	{
+		usleep(500);
+		pthread_mutex_lock(&(philo->sim->mutex));
+		err = (philo->sim->progress <= 0);
+		pthread_mutex_unlock(&(philo->sim->mutex));
+		if (get_ms_from(philo->sim->start_time) >= until)
+			break ;
+	}
+	return (err);
+}
+
+int	philo_echo(t_philo *philo, char *status)
+{
+	int		err;
+
+	pthread_mutex_lock(&(philo->sim->mutex));
+	err = (philo->sim->progress <= 0);
+	if (err == 0)
+		printf("%zu %zu %s\n", get_ms_from(philo->sim->start_time), \
+			philo->id, status);
+	pthread_mutex_unlock(&(philo->sim->mutex));
+	return (err);
 }

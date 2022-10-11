@@ -1,9 +1,0 @@
-{
-	"makefile.extensionOutputFolder": "./.vscode",
-	"files.associations": {
-		"limits.h": "c",
-		"pthread.h": "c",
-		"philosopher.h": "c",
-		"_types.h": "c"
-	}
-}

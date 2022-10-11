@@ -6,13 +6,13 @@
 #    By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:26:23 by sangkkim          #+#    #+#              #
-#    Updated: 2022/08/27 16:26:25 by sangkkim         ###   ########.fr        #
+#    Updated: 2022/10/11 13:20:55 by sangkkim         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-SRCS = main.c init_simulation.c observer_main.c utils.c \
-	   philo_main.c philo_echo.c philo_wait.c
+SRCS = main.c get_input.c init_sim.c \
+	   philo_main.c philo_action.c
 INCS = philo.h
 
 CC = cc

@@ -6,89 +6,103 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 13:38:03 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/08/27 16:07:12 by sangkkim         ###   ########.fr       */
+/*   Updated: 2022/10/11 13:41:37 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "philo.h"
 
-int		init_sim(t_sim *sim, int argc, char **argv);
-void	run_sim(t_sim *sim);
-void	end_sim(t_sim *sim);
+int			get_input(int argc, char *argv[], t_sim *sim);
+int			init_sim(t_sim *sim, t_philo **philos_ptr, t_fork **forks_ptr);
 
-void	observer_main(t_sim *sim);
+void		run_sim(t_sim *sim);
+void		monitor_philos(t_sim *sim, t_philo *philos);
+void		end_sim(t_sim *sim, t_philo *philos, t_fork *forks);
 
 int	main(int argc, char **argv)
 {
-	t_sim	sim;
+	int			err;
+	t_sim		sim;
+	t_philo		*philos;
+	t_fork		*forks;
 
-	if (init_sim(&sim, argc, argv) < 0)
-		return (-1);
-	run_sim(&sim);
-	observer_main(&sim);
-	end_sim(&sim);
-	return (0);
-}
-
-void	print_arg(t_sim *sim)
-{
-	char	buffer[25];
-
-	print("philosophers  : ");
-	buffer[0] = '\0';
-	print(ft_numcat(buffer, sim->arg.philo_num));
-	print("\ntime to die   : ");
-	buffer[0] = '\0';
-	print(ft_numcat(buffer, sim->arg.time_to_die));
-	print("\ntime to eat   : ");
-	buffer[0] = '\0';
-	print(ft_numcat(buffer, sim->arg.time_to_eat));
-	print("\ntime to sleep : ");
-	buffer[0] = '\0';
-	print(ft_numcat(buffer, sim->arg.time_to_sleep));
-	print("\nmust eat      : ");
-	if (sim->arg.option)
+	philos = NULL;
+	forks = NULL;
+	err = get_input(argc, argv, &sim);
+	if (err == 0)
+		err = init_sim(&sim, &philos, &forks);
+	if (err == 0)
 	{
-		buffer[0] = '\0';
-		print(ft_numcat(buffer, sim->arg.must_eat));
+		run_sim(&sim);
+		monitor_philos(&sim, philos);
+		end_sim(&sim, philos, forks);
 	}
-	else
-		print("no");
-	print("\n");
+	return (err);
 }
 
 void	run_sim(t_sim *sim)
 {
-	print("\033[30;1m");
-	print("Simulation is ready\n");
-	print_arg(sim);
-	print("\033[0;32m3");
-	usleep(1000000);
-	print("\b2");
-	usleep(1000000);
-	print("\b1");
-	usleep(1000000);
-	sim->progress = sim->arg.philo_num;
 	gettimeofday(&sim->start_time, NULL);
-	print("\nStart!\n");
-	print("\033[0;0m");
 	pthread_mutex_unlock(&sim->mutex);
 }
 
-void	end_sim(t_sim *sim)
+void	monitor_philos(t_sim *sim, t_philo *philos)
+{
+	int		err;
+	size_t	id;
+	size_t	time;
+
+	err = 0;
+	id = 0;
+	while (1)
+	{
+		pthread_mutex_lock(&(sim->mutex));
+		time = get_ms_from(sim->start_time);
+		if (time >= philos[id].deadline)
+		{
+			sim->progress = 0;
+			err = 1;
+		}
+		pthread_mutex_unlock(&(sim->mutex));
+		if (err == 0)
+			id = (id + 1) % sim->info.philo_num;
+		else
+			break ;
+	}
+	printf("%zu %zu died\n", time, id + 1);
+}
+
+void	end_sim(t_sim *sim, t_philo *philos, t_fork *forks)
 {
 	size_t	i;
 
-	i = 0;
-	while (i < sim->arg.philo_num)
+	if (sim->info.philo_num == 0 && sim->tids[0] != 0)
+		pthread_detach(sim->tids[0]);
+	else if (sim->info.philo_num > 0)
 	{
-		pthread_mutex_destroy(&sim->forks[i]);
-		i++;
+		i = 0;
+		while (i < sim->info.philo_num && sim->tids[i] != 0)
+			pthread_join(sim->tids[i++], NULL);
 	}
-	pthread_mutex_destroy(&sim->mutex);
-	free(sim->forks);
-	free(sim->philos);
-	print("\033[30;1msimulation end!\n\033[0;0m");
+	pthread_mutex_destroy(&(sim->mutex));
+	i = 0;
+	while (i < sim->info.philo_num)
+		pthread_mutex_destroy(&(forks[i++].mutex));
+	free(sim->tids);
+	free(philos);
+	free(forks);
+}
+
+size_t	get_ms_from(struct timeval from)
+{
+	struct timeval	tv;
+	size_t			time;
+
+	gettimeofday(&tv, NULL);
+	time = (tv.tv_sec - from.tv_sec) % 1000000 * 1000;
+	time += (tv.tv_usec - from.tv_usec) % 1000000 / 1000;
+	return (time);
 }
