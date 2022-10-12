@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 11:05:53 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/10/11 13:25:10 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/10/11 16:37:34 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,7 @@ struct s_philo
 
 // utils.c
 size_t	get_ms_from(struct timeval from);
+void	calc_input(t_sim *sim);
+int		parse_uint(unsigned int *uint, char *s);
 
 #endif

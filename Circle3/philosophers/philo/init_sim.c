@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 12:34:58 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/10/11 13:53:07 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/10/11 16:36:21 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ static void	init_data(t_sim *sim, t_philo *philos, t_fork *forks)
 {
 	size_t	i;
 
+	calc_input(sim);
 	sim->progress = sim->info.philo_num;
 	i = 0;
 	while (i < sim->info.philo_num)

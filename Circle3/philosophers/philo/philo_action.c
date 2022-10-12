@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 22:38:27 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/10/11 13:21:30 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/10/11 16:28:25 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,19 @@ int	philo_sleep(t_philo *philo)
 {
 	int		err;
 
-	err = philo_echo(philo, "is sleeping");
+	pthread_mutex_lock(&(philo->sim->mutex));
+	err = (philo->sim->progress <= 0);
+	if (err == 0)
+	{
+		printf("%zu %zu is sleeping\n", \
+			get_ms_from(philo->sim->start_time), philo->id);
+		if (philo->info.type == until_done)
+		{
+			if (++philo->eat_cnt == philo->info.must_eat)
+				philo->sim->progress--;
+		}
+	}
+	pthread_mutex_unlock(&(philo->sim->mutex));
 	philo->right_hand = 0;
 	philo->right_fork->status = available;
 	pthread_mutex_unlock(&(philo->right_fork->mutex));
@@ -89,13 +101,8 @@ static int	philo_echo_eat(t_philo *philo)
 		printf("%zu %zu died\n", time, philo->id);
 	if (err == 0)
 	{
-		philo->eat_cnt++;
+		printf("%zu %zu is eating\n", time, philo->id);
 		philo->deadline = time + philo->info.time_to_die;
-		if (philo->info.type == until_done)
-		{
-			if (++philo->eat_cnt == philo->info.must_eat)
-				philo->sim->progress--;
-		}
 	}
 	pthread_mutex_unlock(&(philo->sim->mutex));
 	return (err);
