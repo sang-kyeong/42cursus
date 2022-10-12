@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 22:38:27 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/10/11 16:28:25 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/10/12 10:41:08 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ int	philo_sleep(t_philo *philo)
 	int		err;
 
 	pthread_mutex_lock(&(philo->sim->mutex));
+	if (philo->info.type == until_done)
+	{
+		if (++philo->eat_cnt == philo->info.must_eat)
+			philo->sim->progress--;
+	}
 	err = (philo->sim->progress <= 0);
 	if (err == 0)
 	{
 		printf("%zu %zu is sleeping\n", \
 			get_ms_from(philo->sim->start_time), philo->id);
-		if (philo->info.type == until_done)
-		{
-			if (++philo->eat_cnt == philo->info.must_eat)
-				philo->sim->progress--;
-		}
 	}
 	pthread_mutex_unlock(&(philo->sim->mutex));
 	philo->right_hand = 0;
