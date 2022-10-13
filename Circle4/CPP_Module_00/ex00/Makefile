@@ -5,8 +5,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS = megaphone.cpp
 
-$(NAME) : $(SRCS)
-	$(CC) $(CFLAGS) -o $@ $^
+$(NAME) : $(SRCS) $(INCS)
+	$(CC) $(CFLAGS) -o $@ $(SRCS)
 
 .PHONY : all clean fclean re
 
