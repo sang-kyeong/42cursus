@@ -27,38 +27,35 @@ int main(void)
 			break ;
 		std::cout.flush();
 	}
-	system("leaks phonebook");
+	system("leaks phonebook | grep total");
 }
 
 void	add_contact(PhoneBook *phonebook)
 {
 	Contact		contact;
-	std::string	input;
+	std::string	input[5];
 
-	while (true)
-	{
-		std::cout << "first name     : ";
-		std::cin >> input;
-		if (!input.empty())
-		{
-			contact.set_first_name(input);
-			break ;
-		}
-		std::cout << "empty input" << std::endl;
-	}
+	std::cout << "first name\t: ";
+	std::cin >> input[0];
+	std::cout << "last name\t: ";
+	std::cin >> input[1];
+	std::cout << "nickname\t: ";
+	std::cin >> input[2];
+	std::cout << "phone number\t: ";
+	std::cin >> input[3];
+	std::cout << "darkest secret\t: ";
+	std::cin >> input[4];
+	contact.set(input[0], input[1], input[2], input[3], input[4]);
 	phonebook->add(contact);
-	// std::cout << "last name      : " << this->last_name << std::endl;
-	// std::cout << "nickname       : " << this->nickname << std::endl;
-	// std::cout << "phone number   : " << this->phone_number << std::endl;
-	// std::cout << "darkest secret : " << this->darkest_secret << std::endl;
 }
 
 void	search_contact(PhoneBook *phonebook)
 {
-	if (phonebook->size() == 0)
-	{
-		std::cout << "no contact here" << std::endl;
+	int		index;
+
+	if (!phonebook->show_list())
 		return ;
-	}
-	phonebook->show_list();
+	std::cout << "search > ";
+	std::cin >> index;
+	phonebook->search(index);
 }

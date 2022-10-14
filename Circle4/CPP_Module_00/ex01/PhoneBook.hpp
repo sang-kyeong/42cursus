@@ -13,7 +13,7 @@ public:
 	~PhoneBook(void);
 	int		size(void);
 	void	add(Contact _contact);
-	void	show_list(void);
+	bool	show_list(void);
 	void	search(int index);
 };
 
@@ -41,20 +41,32 @@ void	PhoneBook::add(Contact _contact)
 		this->contacts[count++] = _contact;
 }
 
-void	PhoneBook::show_list(void)
+bool	PhoneBook::show_list(void)
 {
+	if (this->size() == 0)
+	{
+		std::cout << "no contact here" << std::endl;
+		return (false);
+	}
+	std::cout << std::setw(10) << "index" << "|";
+	std::cout << std::setw(10) << "first name" << "|";
+	std::cout << std::setw(10) << "last name" << "|";
+	std::cout << std::setw(10) << "nickname" << "\n";
 	for (int i = 0; i < count; i++)
 	{
-		std::cout << std::setfill(' ') << std::setprecision(10);
-		std::cout << i + 1 << '|';
-		this->contacts[i].display_short();
+		std::cout << std::setw(10) << i + 1 << "|";
+		this->contacts[i].display_info();
 	}
 	std::cout << std::fixed;
+	return (true);
 }
 
 void	PhoneBook::search(int index)
 {
-	this->contacts[index - 1].display();
+	if (index < 1 || index > this->size())
+		std::cout << "wrong index\n";
+	else
+		this->contacts[index - 1].display_all();
 }
 
 #endif
