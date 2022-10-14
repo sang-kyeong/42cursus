@@ -1,10 +1,10 @@
 NAME = phonebook
 
 CC = c++
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-INCS = PhoneBook.hpp Contact.hpp
-SRCS = main.cpp
+INCS = Contact.hpp PhoneBook.hpp
+SRCS = main.cpp Contact.cpp PhoneBook.cpp
 
 $(NAME) : $(SRCS) $(INCS)
 	$(CC) $(CFLAGS) -o $@ $(SRCS)

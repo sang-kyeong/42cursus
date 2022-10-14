@@ -1,74 +1,35 @@
-#ifndef CONTACT_HPP
-# define CONTACT_HPP
+#ifndef __CONTACT_H__
+# define __CONTACT_H__
 
 # include <string>
 # include <iostream>
 # include <iomanip>
 
-class Contact
-{
-private:
-	std::string	first_name;
-	std::string	last_name;
-	std::string	nickname;
-	std::string	phone_number;
-	std::string	darkest_secret;
+class Contact {
+
 public:
-	Contact(void);
-	~Contact();
-	void	set(std::string _first_name, \
-		std::string _last_name, std::string _nickname, \
-		std::string _phone_number, std::string _datkest_secret);
-	void	display_info(void);
-	void	display_all(void);
+
+	Contact( void );
+	~Contact( void );
+
+	void	set_index(int index);
+	void	set_first_name(std::string first_name);
+	void	set_last_name(std::string last_name);
+	void	set_nickname(std::string nickname);
+	void	set_phone_number(std::string phone_number);
+	void	set_darkest_secret(std::string darkest_secret);
+
+	void	display_name(void) const;
+	void	display_all_info(void) const;
+
+private:
+
+	std::string		_first_name;
+	std::string		_last_name;
+	std::string		_nickname;
+	std::string		_phone_number;
+	std::string		_darkest_secret;
+
 };
 
-Contact::Contact(void)
-{
-	
-}
-
-Contact::~Contact(void)
-{
-	
-}
-
-void	Contact::set(std::string _first_name, \
-	std::string _last_name, std::string _nickname, \
-	std::string _phone_number, std::string _darkest_secret)
-{
-	this->first_name = _first_name;
-	this->last_name = _last_name;
-	this->nickname = _nickname;
-	this->phone_number = _phone_number;
-	this->darkest_secret = _darkest_secret;
-}
-
-void	Contact::display_info(void)
-{
-	if (this->first_name.size() > 10)
-		std::cout << this->first_name.substr(0, 9) << ".|";
-	else
-		std::cout << std::setw(10) << this->first_name << "|";
-
-	if (this->last_name.size() > 10)
-		std::cout << this->last_name.substr(0, 9) << ".|";
-	else
-		std::cout << std::setw(10) << this->last_name << "|";
-
-	if (this->nickname.size() > 10)
-		std::cout << this->nickname.substr(0, 9) << ".|";
-	else
-		std::cout << std::setw(10) << this->nickname << "\n";
-}
-
-void	Contact::display_all(void)
-{
-	std::cout << "first name     : " << this->first_name << std::endl;
-	std::cout << "last name      : " << this->last_name << std::endl;
-	std::cout << "nickname       : " << this->nickname << std::endl;
-	std::cout << "phone number   : " << this->phone_number << std::endl;
-	std::cout << "darkest secret : " << this->darkest_secret << std::endl;
-}
-
-#endif
+#endif /* __CONTACT_H__ */
