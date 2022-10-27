@@ -13,7 +13,6 @@ int main(void)
 
 	while (true)
 	{
-		std::cin.clear();
 		std::cout << prompt;
 		std::getline(std::cin, command);
 		if (command.compare("ADD") == 0)
@@ -25,6 +24,6 @@ int main(void)
 		else
 			std::cout << "usage : ADD, SEARCH, EXIT" << std::endl;
 	}
-	system("leaks phonebook | grep total");
+	system("leaks ex01 | grep total");
 	return (0);
 }
