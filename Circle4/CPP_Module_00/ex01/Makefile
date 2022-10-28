@@ -1,6 +1,6 @@
 NAME = ex01
 
-CXX = g++
+CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 INCS = Contact.hpp PhoneBook.hpp
