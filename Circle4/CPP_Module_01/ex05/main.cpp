@@ -10,13 +10,13 @@ int	main(void)
 	std::cout << "Let's talk to Harl!" << std::endl;
 	while (true)
 	{
-		std::cout << "Me\t: ";
+		std::cout << "[Me]" << std::endl << "> ";
 		std::getline(std::cin, input);
 		if (input.compare("EXIT") == 0)
 			break ;
 		else
 		{
-			std::cout << "Harl\t: ";
+			std::cout << "[Harl]" << std::endl;
 			my_harl.complain(input);
 		}
 	}
