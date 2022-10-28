@@ -1,4 +1,5 @@
-
+#ifndef __ZONBIE_H__
+# define __ZOMBIE_H__
 
 #include <string>
 
@@ -15,3 +16,5 @@ public:
 	void	set_name(std::string);
 	void	anounce ( void );
 };
+
+#endif //__ZOMBIE_H__
