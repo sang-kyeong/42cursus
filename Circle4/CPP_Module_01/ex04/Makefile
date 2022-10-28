@@ -3,7 +3,8 @@ NAME = ex04
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp
+INCS = StringEditor.hpp
+SRCS = main.cpp StringEditor.cpp readFile.cpp writeFile.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 %.o : %.cpp $(INCS)

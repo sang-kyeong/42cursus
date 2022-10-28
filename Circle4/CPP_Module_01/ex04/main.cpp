@@ -1,18 +1,29 @@
 #include <string>
 #include <iostream>
+#include "StringEditor.hpp"
+
+int	read_file(std::string filename, std::string &content);
+int	write_file(std::string filename, std::string &content);
 
 int main(int argc, char *argv[])
 {
-	std::string	command("");
+	std::string		content;
+	StringEditor	editor;
 
 	if (argc != 4)
-		return (-1);
+		return (127);
 
-	command.append("< ").append(argv[1]);
-	command.append(" sed s/").append(argv[2]).append("/").append(argv[3]).append("/g ");
-	command.append(">").append(argv[1]).append(".replace");
+	if (read_file(std::string(argv[1]), content) == 1)
+		return (1);
+	std::cout << "read : " << content << std::endl;
 
-	std::cout << "Haha!! I'm the loser! " << std::endl;
-	std::cout << "Baaaaaam" << std::endl;
-	return (system(command.c_str()));
+	editor.set_string(content);
+	editor.replace(std::string(argv[2]), std::string(argv[3]));
+	content = editor.get_string();
+
+	std::cout << "replaced : " << content << std::endl;
+	if (write_file(std::string(argv[1]).append(".replace"), content) == 1)
+		return (1);
+
+	return (0);
 }
