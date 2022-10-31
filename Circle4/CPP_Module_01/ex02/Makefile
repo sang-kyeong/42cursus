@@ -1,10 +1,9 @@
-NAME = ex01
+NAME = ex02
 
-CXX = g++
+CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-INCS = Contact.hpp PhoneBook.hpp
-SRCS = main.cpp Contact.cpp PhoneBook.cpp
+SRCS = main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 %.o : %.cpp $(INCS)

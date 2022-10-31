@@ -1,10 +1,10 @@
-NAME = ex01
+NAME = Harl2.0
 
-CXX = g++
+CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-INCS = Contact.hpp PhoneBook.hpp
-SRCS = main.cpp Contact.cpp PhoneBook.cpp
+INCS = Harl.hpp
+SRCS = main.cpp Harl.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 %.o : %.cpp $(INCS)

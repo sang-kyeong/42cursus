@@ -32,10 +32,15 @@ void	PhoneBook::add_contact(void)
 	std::cout << "phone number\t: ";
 	std::cin >> input;
 	contact.set_phone_number(input);
+	std::cin.clear();
+	std::cin.ignore();
 	std::cout << "darkest secret\t: ";
-	std::cin >> input;
+	input.clear();
+	while (input.length() <= 1)
+		std::getline(std::cin, input);
 	contact.set_darkest_secret(input);
 	this->add(contact);
+	std::cout << std::endl << "New contact is added" << std::endl;
 }
 
 void	PhoneBook::search_contact(void) const
@@ -49,8 +54,14 @@ void	PhoneBook::search_contact(void) const
 	}
 	std::cout << "index > ";
 	std::cin >> index;
-	if (!this->display_info(index))
+	if (std::cin.fail())
+	{
+		std::cin.clear();
 		std::cout << "Wrong index" << std::endl;
+	}
+	else if (!this->display_info(index))
+		std::cout << "Wrong index" << std::endl;
+	std::cin.ignore();
 }
 
 void	PhoneBook::add(Contact _contact)

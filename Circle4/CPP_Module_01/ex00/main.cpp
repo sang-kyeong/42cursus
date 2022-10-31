@@ -1,3 +1,5 @@
+#include <string>
+#include <iostream>
 #include "Zombie.hpp"
 
 Zombie*	newZombie( std::string name );
@@ -5,11 +7,11 @@ void	randomChump( std::string name );
 
 int	main(void)
 {
-	Zombie		*zombie;
+	Zombie	*zombie;
 
-	zombie = newZombie("A");
+	zombie = newZombie("heap");
 	zombie->announce();
-	randomChump("B");
-	delete(zombie);
-	return (0);
+	randomChump("stack");
+	zombie->announce();
+	delete (zombie);
 }
