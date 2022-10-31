@@ -17,13 +17,13 @@ Fixed::Fixed	( const Fixed &fixed_point_number )
 Fixed::Fixed	( const int int_value )
 {
 	std::cout << "Int constructor called" << std::endl;
-	this->setRawBits(int_value << this->_fractional_bit);
+	this->setRawBits(int_value * (1 << Fixed::_fractional_bit));
 }
 
 Fixed::Fixed	( const float float_value )
 {
 	std::cout << "Float constructor called" << std::endl;
-	this->setRawBits(float_value * (1 << this->_fractional_bit));
+	this->setRawBits(float_value * (1 << Fixed::_fractional_bit));
 }
 
 Fixed & Fixed::operator = ( const Fixed &fixed_point_number )
@@ -35,11 +35,13 @@ Fixed & Fixed::operator = ( const Fixed &fixed_point_number )
 
 std::ostream & operator << (std::ostream & output_stream, const Fixed & fixed_point_number)
 {
-	output_stream << (fixed_point_number.getRawBits() >> 8);
-	if (fixed_point_number.getRawBits() & 0x00FF)
-		output_stream << fixed_point_number.toFloat();
+	float	float_value = fixed_point_number.toFloat();
+	int		int_value = fixed_point_number.toInt();
+
+	if (float_value == (float)int_value)
+		output_stream << int_value;
 	else
-		output_stream << fixed_point_number.toInt();
+		output_stream << float_value;
 	return (output_stream);
 }
 
@@ -62,11 +64,10 @@ void	Fixed::setRawBits ( int const raw )
 
 float	Fixed::toFloat ( void ) const
 {
-	return (0);
+	return ((float)(this->_value) / (float)(1 << Fixed::_fractional_bit));
 }
 
 int		Fixed::toInt ( void ) const
 {
-	unsigned int	value = (unsigned int)this->getRawBits();
-	return (value >> this->_fractional_bit);
+	return ((this->_value) >> Fixed::_fractional_bit);
 }
