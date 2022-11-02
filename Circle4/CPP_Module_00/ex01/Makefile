@@ -1,26 +1,34 @@
-NAME = ex01
+NAME := ex01
 
-CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXX := c++
+CXXFLAGS := -Wall -Wextra -Werror
 
-INCS = Contact.hpp PhoneBook.hpp
-SRCS = main.cpp Contact.cpp PhoneBook.cpp
-OBJS = $(SRCS:.cpp=.o)
+CPPFLAGS := -MMD
 
-%.o : %.cpp $(INCS)
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+# RM := rm -f
+
+SRCS := main.cpp PhoneBook.cpp Contact.cpp
+OBJS := $(SRCS:.cpp=.o)
+DEPS := $(SRCS:.cpp=.d)
+
+# %.o : %.cpp
+# 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
 
 $(NAME) : $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJS)
 
-.PHONY : all clean fclean re
+.PHONY : all clean re std
 
 all : $(NAME)
 
 clean :
-	rm -f $(OBJS)
+	$(RM) $(OBJS)
+	$(RM) $(DEPS)
+	$(RM) $(NAME)
 
-fclean : clean
-	rm -f $(NAME)
+re : clean all
 
-re : fclean all
+std :
+	@make 'CXXFLAGS := $(CXXFLAGS) -std=c++98'
+
+-include $(DEPS)
