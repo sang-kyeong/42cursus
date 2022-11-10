@@ -24,6 +24,5 @@ int main(void)
 		else
 			std::cout << "usage : ADD, SEARCH, EXIT" << std::endl;
 	}
-	system("leaks ex01 | grep total");
 	return (0);
 }

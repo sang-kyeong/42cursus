@@ -20,25 +20,51 @@ void	PhoneBook::add_contact(void)
 	Contact		contact;
 	std::string	input;
 
-	std::cout << "first name\t: ";
-	std::cin >> input;
-	contact.set_first_name(input);
-	std::cout << "last name\t: ";
-	std::cin >> input;
-	contact.set_last_name(input);
-	std::cout << "nickname\t: ";
-	std::cin >> input;
-	contact.set_nickname(input);
-	std::cout << "phone number\t: ";
-	std::cin >> input;
-	contact.set_phone_number(input);
-	std::cin.clear();
-	std::cin.ignore();
-	std::cout << "darkest secret\t: ";
-	input.clear();
-	while (input.length() <= 1)
+	while (true)
+	{
+		std::cout << "first name\t: ";
 		std::getline(std::cin, input);
+		if (input.length() > 0)
+			break ;
+	}
+	contact.set_first_name(input);
+
+	while (true)
+	{
+		std::cout << "last name\t: ";
+		std::getline(std::cin, input);
+		if (input.length() > 0)
+			break ;
+	}
+	contact.set_last_name(input);
+
+	while (true)
+	{
+		std::cout << "nickname\t: ";
+		std::getline(std::cin, input);
+		if (input.length() > 0)
+			break ;
+	}
+	contact.set_nickname(input);
+
+	while (true)
+	{
+		std::cout << "phone number\t: ";
+		std::getline(std::cin, input);
+		if (input.length() > 0)
+			break ;
+	}
+	contact.set_phone_number(input);
+
+	while (true)
+	{
+		std::cout << "darkest secret\t: ";
+		std::getline(std::cin, input);
+		if (input.length() > 0)
+			break ;
+	}
 	contact.set_darkest_secret(input);
+
 	this->add(contact);
 	std::cout << std::endl << "New contact is added" << std::endl;
 }
@@ -57,11 +83,11 @@ void	PhoneBook::search_contact(void) const
 	if (std::cin.fail())
 	{
 		std::cin.clear();
-		std::cout << "Wrong index" << std::endl;
+		std::cout << "Wrong input" << std::endl;
 	}
 	else if (!this->display_info(index))
-		std::cout << "Wrong index" << std::endl;
-	std::cin.ignore();
+		std::cout << "Index out of range" << std::endl;
+	std::cin.ignore(1024, '\n');
 }
 
 void	PhoneBook::add(Contact _contact)
@@ -76,11 +102,17 @@ bool	PhoneBook::display_list(void) const
 {
 	if (this->_nb_contact == 0)
 		return (false);
+
+	std::cout << "+----------+----------+----------+----------+" << std::endl;
+	std::cout << "|     index|first name| last name|  nickname|" << std::endl;
+	std::cout << "+----------+----------+----------+----------+" << std::endl;
 	for (int index = 0; index < _nb_contact; index++)
 	{
-		std::cout << std::setw(10) << index + 1 << "|";
+		std::cout << "|" << std::setw(10) << index + 1 << "|";
 		this->_contacts[index].display_name();
+		std::cout << "|" << std::endl;
 	}
+	std::cout << "+----------+----------+----------+----------+" << std::endl;
 	return (true);
 }
 

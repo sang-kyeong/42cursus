@@ -51,9 +51,9 @@ void	Contact::display_name(void) const
 		std::cout << std::setw(10) << this->_last_name << "|";
 
 	if (this->_nickname.size() > 10)
-		std::cout << this->_nickname.substr(0, 9) << "." << std::endl;
+		std::cout << this->_nickname.substr(0, 9) << ".";
 	else
-		std::cout << std::setw(10) << this->_nickname << std::endl;
+		std::cout << std::setw(10) << this->_nickname;
 }
 
 void	Contact::display_all_info(void) const
