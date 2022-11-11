@@ -4,14 +4,14 @@
 
 HumanB::HumanB(std::string name) : _name(name), _weapon(NULL)
 {
-	std::cout << this->_name << " created and nothing is on his hand" << std::endl;
+	std::cout << this->_name << " (이)가 나타났다. 그는 아무것도 들고있지 않다." << std::endl;
 }
 
 HumanB::~HumanB( void )
 {
 	if (this->_weapon != NULL)
 		delete (this->_weapon);
-	std::cout << this->_name << " destroyed" << std::endl;
+	std::cout << this->_name << " (이)가 사라졌다." << std::endl;
 }
 
 void	HumanB::setWeapon(Weapon weapon)

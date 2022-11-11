@@ -4,20 +4,20 @@
 
 Weapon::Weapon ( void )
 {
-	std::cout << "a unknown weapons is created" << std::endl;
+	std::cout << "정체모를 무기가 나타났다." << std::endl;
 }
 
 Weapon::Weapon ( std::string type ) : _type(type)
 {
-	std::cout << this->_type << " is created" << std::endl;
+	std::cout << this->_type << " (이)가 나타났다." << std::endl;
 }
 
 Weapon::~Weapon (void )
 {
 	if (this->_type.empty())
-		std::cout << "A unknown weapon is destroyed" << std::endl;
+		std::cout << "정체모를 무기가 사라졌다." << std::endl;
 	else
-		std::cout << this->_type << " is destroyed" << std::endl;
+		std::cout << this->_type << " (이)가 사라졌다." << std::endl;
 }
 
 const std::string	Weapon::getType ( void )
