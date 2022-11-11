@@ -1,9 +1,12 @@
 NAME := ex02
 
-CXX := c++
+CXX := g++
 CXXFLAGS := -Wall -Wextra -Werror
 
 CPPFLAGS := -MMD
+
+CC := 
+CFLAGS :=
 
 # RM := rm -f
 
@@ -29,6 +32,7 @@ clean :
 re : clean all
 
 std :
-	@make 'CXXFLAGS := $(CXXFLAGS) -std=c++98'
+	@make 'CXXFLAGS := $(CXXFLAGS) -std=c++98 -pedantic'
+#	@make 'CXXFLAGS := $(CXXFLAGS) -std=c++98'
 
 -include $(DEPS)

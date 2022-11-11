@@ -9,22 +9,22 @@ int				Account::_nbAccounts = 0;
 
 int	Account::getNbAccounts( void )
 {
-	return (_nbAccounts);
+	return (Account::_nbAccounts);
 }
 
 int	Account::getTotalAmount( void )
 {
-	return (_totalAmount);
+	return (Account::_totalAmount);
 }
 
 int	Account::getNbDeposits( void )
 {
-	return (_totalNbDeposits);
+	return (Account::_totalNbDeposits);
 }
 
 int	Account::getNbWithdrawals( void )
 {
-	return (_totalNbWithdrawals);
+	return (Account::_totalNbWithdrawals);
 }
 
 void	Account::displayAccountsInfos( void )
@@ -39,12 +39,12 @@ void	Account::displayAccountsInfos( void )
 
 Account::Account( int initial_deposit )
 {
-	this->_accountIndex = _nbAccounts;
+	this->_accountIndex = Account::_nbAccounts;
 	this->_amount = initial_deposit;
 	this->_nbDeposits = 0;
 	this->_nbWithdrawals = 0;
-	_nbAccounts += 1;
-	_totalAmount += initial_deposit;
+	Account::_nbAccounts += 1;
+	Account::_totalAmount += initial_deposit;
 
 	// [timestamp] index:_accountIndex;amount:_amount;created
 	_displayTimestamp();
@@ -68,9 +68,9 @@ void	Account::makeDeposit( int deposit )
 
 	p_amount = checkAmount();
 	this->_amount += deposit;
-	_totalAmount += deposit;
+	Account::_totalAmount += deposit;
 	this->_nbDeposits++;
-	_totalNbDeposits++;
+	Account::_totalNbDeposits++;
 
 	// [timestamp] index:_accountIndex;p_amount:p_amount;deposit:deposit;amount:_amount;nb_deposits:_nbDeposits
 	_displayTimestamp();
@@ -89,9 +89,9 @@ bool	Account::makeWithdrawal( int withdrawal )
 	if (p_amount >= withdrawal)
 	{
 		this->_amount -= withdrawal;
-		_totalAmount -= withdrawal;
+		Account::_totalAmount -= withdrawal;
 		this->_nbWithdrawals++;
-		_totalNbWithdrawals++;
+		Account::_totalNbWithdrawals++;
 
 		// [timestamp] index:_accountIndex;p_amount:_amount;withdrawal:withdrawal;amount:_amount;nb_withdrawals:_nbWithdrawals
 		_displayTimestamp();

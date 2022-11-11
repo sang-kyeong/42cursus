@@ -29,6 +29,6 @@ clean :
 re : clean all
 
 std :
-	@make 'CXXFLAGS := $(CXXFLAGS) -std=c++98'
+	@make 'CXXFLAGS := $(CXXFLAGS) -std=c++98 -pedantic'
 
 -include $(DEPS)

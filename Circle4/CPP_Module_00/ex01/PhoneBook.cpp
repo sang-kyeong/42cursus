@@ -103,16 +103,16 @@ bool	PhoneBook::display_list(void) const
 	if (this->_nb_contact == 0)
 		return (false);
 
-	std::cout << "+----------+----------+----------+----------+" << std::endl;
-	std::cout << "|     index|first name| last name|  nickname|" << std::endl;
-	std::cout << "+----------+----------+----------+----------+" << std::endl;
+	std::cout << "┌──────────┬──────────┬──────────┬──────────┐" << std::endl;
+	std::cout << "│     index│first name│ last name│  nickname│" << std::endl;
 	for (int index = 0; index < _nb_contact; index++)
 	{
-		std::cout << "|" << std::setw(10) << index + 1 << "|";
+		std::cout << "├──────────┼──────────┼──────────┼──────────┤" << std::endl;
+		std::cout << "│" << std::setw(10) << index + 1 << "|";
 		this->_contacts[index].display_name();
-		std::cout << "|" << std::endl;
+		std::cout << "│" << std::endl;
 	}
-	std::cout << "+----------+----------+----------+----------+" << std::endl;
+	std::cout << "└──────────┴──────────┴──────────┴──────────┘" << std::endl;
 	return (true);
 }
 
