@@ -17,6 +17,7 @@ public:
 private:
 
 	int				_nb_contact;
+	int				_next_index;
 	Contact			_contacts[8];
 
 	void	add(Contact _contact);

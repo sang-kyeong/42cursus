@@ -10,9 +10,9 @@ int	main(int argc, char *argv[])
 		{
 			std::string		str(argv[i]);
 
-			for (size_t i = 0; i < str.length(); i++)
+			for (size_t j = 0; j < str.length(); j++)
 			{
-				str[i] = std::toupper(str[i]);
+				str[j] = std::toupper(str[j]);
 			}
 			std::cout << str;
 		}

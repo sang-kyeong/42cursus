@@ -6,6 +6,7 @@
 PhoneBook::PhoneBook(void)
 {
 	_nb_contact = 0;
+	_next_index = 0;
 	for (int i = 0; i < 8; i++)
 		_contacts[i] = Contact();
 }
@@ -15,55 +16,31 @@ PhoneBook::~PhoneBook(void)
 
 }
 
+std::string get_input(std::string field_name)
+{
+	std::string input;
+
+	while (true)
+	{
+		std::cout << field_name << "\t: ";
+		std::getline(std::cin, input);
+		if (input.find("\t") != input.npos)
+			std::cout << "Sorry, tab character isn't allowed" << std::endl;
+		else if (input.length() > 0)
+			break ;
+	}
+	return (input);
+}
+
 void	PhoneBook::add_contact(void)
 {
 	Contact		contact;
-	std::string	input;
 
-	while (true)
-	{
-		std::cout << "first name\t: ";
-		std::getline(std::cin, input);
-		if (input.length() > 0)
-			break ;
-	}
-	contact.set_first_name(input);
-
-	while (true)
-	{
-		std::cout << "last name\t: ";
-		std::getline(std::cin, input);
-		if (input.length() > 0)
-			break ;
-	}
-	contact.set_last_name(input);
-
-	while (true)
-	{
-		std::cout << "nickname\t: ";
-		std::getline(std::cin, input);
-		if (input.length() > 0)
-			break ;
-	}
-	contact.set_nickname(input);
-
-	while (true)
-	{
-		std::cout << "phone number\t: ";
-		std::getline(std::cin, input);
-		if (input.length() > 0)
-			break ;
-	}
-	contact.set_phone_number(input);
-
-	while (true)
-	{
-		std::cout << "darkest secret\t: ";
-		std::getline(std::cin, input);
-		if (input.length() > 0)
-			break ;
-	}
-	contact.set_darkest_secret(input);
+	contact.set_first_name(get_input("first name"));
+	contact.set_last_name(get_input("last name"));
+	contact.set_nickname(get_input("nickname"));
+	contact.set_phone_number(get_input("phone number"));
+	contact.set_darkest_secret(get_input("darkest secret"));
 
 	this->add(contact);
 	std::cout << std::endl << "New contact is added" << std::endl;
@@ -92,10 +69,8 @@ void	PhoneBook::search_contact(void) const
 
 void	PhoneBook::add(Contact _contact)
 {
-	if (this->_nb_contact == 8)
-		this->_contacts[7] = _contact;
-	else
-		this->_contacts[_nb_contact++] = _contact;
+	this->_contacts[_next_index % 8] = _contact;
+	this->_next_index++;
 }
 
 bool	PhoneBook::display_list(void) const
