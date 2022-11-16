@@ -9,16 +9,12 @@ HumanB::HumanB(std::string name) : _name(name), _weapon(NULL)
 
 HumanB::~HumanB( void )
 {
-	if (this->_weapon != NULL)
-		delete (this->_weapon);
 	std::cout << this->_name << " (이)가 사라졌다." << std::endl;
 }
 
-void	HumanB::setWeapon(Weapon weapon)
+void	HumanB::setWeapon(Weapon &weapon)
 {
-	if (this->_weapon == NULL)
-		this->_weapon = new Weapon();
-	this->_weapon->setType(weapon.getType());
+	this->_weapon = &weapon;
 }
 
 void	HumanB::attack( void )
