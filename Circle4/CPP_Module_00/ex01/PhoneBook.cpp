@@ -9,11 +9,12 @@ PhoneBook::PhoneBook(void)
 	_next_index = 0;
 	for (int i = 0; i < 8; i++)
 		_contacts[i] = Contact();
+	std:: cout << "Hello! Your phonebook is ready! ᕕ( ᐛ )ᕗ" << std::endl;
 }
 
 PhoneBook::~PhoneBook(void)
 {
-
+	std::cout << "Goodbye ᕙ(`▽´)ᕗ" << std::endl;
 }
 
 std::string get_input(std::string field_name)
@@ -55,15 +56,22 @@ void	PhoneBook::search_contact(void) const
 		std::cout << "Phone book is empty" << std::endl;
 		return ;
 	}
-	std::cout << "index > ";
-	std::cin >> index;
-	if (std::cin.fail())
+
+	while (true)
 	{
-		std::cin.clear();
-		std::cout << "Wrong input" << std::endl;
+		std::cout << "index > ";
+		std::cin >> index;
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cout << "Wrong input" << std::endl;
+		}
+		else if (!this->display_info(index))
+			std::cout << "Index out of range" << std::endl;
+		else
+			break ;
+		std::cin.ignore(1024, '\n');
 	}
-	else if (!this->display_info(index))
-		std::cout << "Index out of range" << std::endl;
 	std::cin.ignore(1024, '\n');
 }
 
@@ -71,6 +79,8 @@ void	PhoneBook::add(Contact _contact)
 {
 	this->_contacts[_next_index % 8] = _contact;
 	this->_next_index++;
+	if (this->_nb_contact < 8)
+		this->_nb_contact++;
 }
 
 bool	PhoneBook::display_list(void) const
