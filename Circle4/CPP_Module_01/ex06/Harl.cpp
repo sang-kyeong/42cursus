@@ -2,18 +2,11 @@
 #include <iostream>
 #include "Harl.hpp"
 
-Harl::Harl ( void )
-{
-	// std::cout << "Harl is created" << std::endl;
-}
+Harl::Harl ( void ) {   }
 
-Harl::~Harl ( void )
-{
-	// std::cout << "Harl is destroyed" << std::endl;
-}
+Harl::~Harl ( void ) {   }
 
-void	Harl::complain( std::string level )
-{
+void	Harl::complain( std::string level ) {
 	void (Harl::*func)(void) = NULL;
 
 	int mask = \
@@ -43,8 +36,7 @@ void	Harl::complain( std::string level )
 	(this->*func)();
 }
 
-void	Harl::filter( std::string level )
-{
+void	Harl::filter( std::string level ) {
 	int mask = \
 		((level.compare("DEBUG") == 0)   * 1) + \
 		((level.compare("INFO") == 0)    * 2) + \
@@ -75,27 +67,8 @@ void	Harl::filter( std::string level )
 	}
 }
 
-void	Harl::debug ( void )
-{
-	std::cout << MSG_DEBUG << std::endl;
-}
-
-void	Harl::info ( void )
-{
-	std::cout << MSG_INFO << std::endl;
-}
-
-void	Harl::warning ( void )
-{
-	std::cout << MSG_WARNING << std::endl;
-}
-
-void	Harl::error ( void )
-{
-	std::cout << MSG_ERROR << std::endl;
-}
-
-void	Harl::normal (void )
-{
-	std::cout << MSG_NORMAL << std::endl;
-}
+void	Harl::debug ( void )	{ std::cout << MSG_DEBUG << std::endl; }
+void	Harl::info ( void )		{ std::cout << MSG_INFO << std::endl; }
+void	Harl::warning ( void )	{ std::cout << MSG_WARNING << std::endl; }
+void	Harl::error ( void )	{ std::cout << MSG_ERROR << std::endl; }
+void	Harl::normal (void )	{ std::cout << MSG_NORMAL << std::endl; }

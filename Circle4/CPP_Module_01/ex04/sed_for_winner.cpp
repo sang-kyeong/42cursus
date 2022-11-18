@@ -5,8 +5,7 @@
 int		read_original(std::string file_name, std::string &content);
 int		write_replace(std::string file_name, std::string &content, std::string from, std::string to);
 
-void	sed_for_winner(char *argv[])
-{
+void	sed_for_winner(char *argv[]) {
 	std::string		content;
 
 	content.clear();
@@ -16,8 +15,7 @@ void	sed_for_winner(char *argv[])
 		return ;
 }
 
-int		read_original(std::string file_name, std::string &content)
-{
+int		read_original(std::string file_name, std::string &content) {
 	std::ifstream	input_file_stream;
 	std::string		buffer;
 
@@ -48,8 +46,7 @@ int		read_original(std::string file_name, std::string &content)
 	}
 }
 
-int		write_replace(std::string file_name, std::string &content, std::string from, std::string to)
-{
+int		write_replace(std::string file_name, std::string &content, std::string from, std::string to) {
 	std::ofstream	output_file_stream;
 	size_t	index = 0, next_word;
 

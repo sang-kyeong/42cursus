@@ -5,8 +5,7 @@
 void	add_contact(PhoneBook *phone_book);
 void	search_contact(PhoneBook *phone_book);
 
-int main(void)
-{
+int main(void) {
 	const std::string	prompt = "> ";
 	std::string			command;
 	PhoneBook			phone_book;

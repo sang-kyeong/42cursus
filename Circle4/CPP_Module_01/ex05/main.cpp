@@ -2,8 +2,7 @@
 #include <iostream>
 #include "Harl.hpp"
 
-int	main(void)
-{
+int	main(void) {
 	Harl		my_harl;
 	std::string	input;
 

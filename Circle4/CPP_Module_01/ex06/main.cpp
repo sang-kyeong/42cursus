@@ -2,8 +2,7 @@
 #include <iostream>
 #include "Harl.hpp"
 
-int	main(int argc, char *argv[])
-{
+int	main(int argc, char *argv[]) {
 	Harl		my_harl;
 
 	if (argc != 2)

@@ -5,8 +5,7 @@
 void	sed_for_loser(char *argv[]);
 void	sed_for_winner(char *argv[]);
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 	std::string	command("");
 
 	if (argc == 5 && std::string(argv[1]).compare("loser") == 0)
@@ -18,8 +17,7 @@ int main(int argc, char *argv[])
 	return (0);
 }
 
-void	sed_for_loser(char *argv[])
-{
+void	sed_for_loser(char *argv[]) {
 	std::string	command = "";
 
 	command.append("< ").append(argv[2]);
