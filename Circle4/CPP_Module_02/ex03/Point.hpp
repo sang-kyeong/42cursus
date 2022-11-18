@@ -19,11 +19,6 @@ public:
 
 	Point & operator= (const Point & other );
 
-	friend std::ostream & operator<< ( std::ostream &output_stream, const Point & point );
-
-	friend Point operator+ ( Point left, const Point & right );
-	friend Point operator- ( Point left, const Point & right );
-
 	~Point();
 
 	void	setX ( Fixed x );
@@ -32,5 +27,10 @@ public:
 	Fixed	getY ( void ) const;
 
 };
+
+std::ostream & operator<< ( std::ostream &output_stream, const Point & point );
+
+Point operator+ ( Point left, const Point & right );
+Point operator- ( Point left, const Point & right );
 
 #endif //__POINT_H__

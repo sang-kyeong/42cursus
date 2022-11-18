@@ -19,7 +19,6 @@ public:
 	Fixed ( const float float_value );
 
 	Fixed &	operator= ( const Fixed & other );
-	friend std::ostream & operator<< ( std::ostream & output_stream, const Fixed & fixed );
 
 	~Fixed ( void );
 
@@ -29,5 +28,7 @@ public:
 	float	toFloat( void ) const;
 	int		toInt( void ) const;
 };
+
+std::ostream & operator<< ( std::ostream & os, const Fixed & fixed );
 
 #endif //__FIXED_H__

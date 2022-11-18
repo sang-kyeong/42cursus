@@ -22,23 +22,6 @@ public:
 	// copy operator
 	Fixed &	operator= ( const Fixed & other );
 
-	// insertion operator
-	friend std::ostream & operator<< ( std::ostream & output_stream, const Fixed & fixed );
-
-	// comparison operators
-	friend bool	operator< (const Fixed & left, const Fixed & right );
-	friend bool	operator> (const Fixed & left, const Fixed & right );
-	friend bool	operator<= (const Fixed & left, const Fixed & right );
-	friend bool	operator>= (const Fixed & left, const Fixed & right );
-	friend bool	operator== (const Fixed & left, const Fixed & right );
-	friend bool	operator!= (const Fixed & left, const Fixed & right );
-
-	// arithmetic operators
-	friend Fixed operator+ ( Fixed left, const Fixed & right );
-	friend Fixed operator- ( Fixed left, const Fixed & right );
-	friend Fixed operator* ( Fixed left, const Fixed & right );
-	friend Fixed operator/ ( Fixed left, const Fixed & right );
-
 	// increament, decreament operators
 	Fixed &	operator++ ();
 	Fixed	operator++ ( int );
@@ -57,9 +40,27 @@ public:
 	// getter, setter
 	int		getRawBits ( void ) const;
 	void	setRawBits ( int const raw );
+	static int	getFractionalBits ( void );
 
 	float	toFloat( void ) const;
 	int		toInt( void ) const;
 };
+
+// insertion operator
+std::ostream & operator<< ( std::ostream & output_stream, const Fixed & fixed );
+
+// comparison operators
+bool	operator< (const Fixed & left, const Fixed & right );
+bool	operator> (const Fixed & left, const Fixed & right );
+bool	operator<= (const Fixed & left, const Fixed & right );
+bool	operator>= (const Fixed & left, const Fixed & right );
+bool	operator== (const Fixed & left, const Fixed & right );
+bool	operator!= (const Fixed & left, const Fixed & right );
+
+// arithmetic operators
+Fixed operator+ ( Fixed left, const Fixed & right );
+Fixed operator- ( Fixed left, const Fixed & right );
+Fixed operator* ( Fixed left, const Fixed & right );
+Fixed operator/ ( Fixed left, const Fixed & right );
 
 #endif //__FIXED_H__

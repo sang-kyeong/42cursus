@@ -85,13 +85,13 @@ Fixed operator- ( Fixed left, const Fixed & right )
 
 Fixed operator* ( Fixed left, const Fixed & right )
 {
-	left.setRawBits((int)roundf(left.toFloat() * right.toFloat() * (1 << Fixed::_fractional_bits)));
+	left.setRawBits((int)roundf(left.toFloat() * right.toFloat() * (1 << Fixed::getFractionalBits())));
 	return (left);
 }
 
 Fixed operator/ ( Fixed left, const Fixed & right )
 {
-	left.setRawBits((int)roundf(left.toFloat() / right.toFloat() * (1 << Fixed::_fractional_bits)));
+	left.setRawBits((int)roundf(left.toFloat() / right.toFloat() * (1 << Fixed::getFractionalBits())));
 	return (left);
 }
 
@@ -159,14 +159,19 @@ void	Fixed::setRawBits ( int const raw )
 	this->_raw = raw;
 }
 
+int		Fixed::getFractionalBits ( void )
+{
+	return (Fixed::_fractional_bits);
+}
+
 float	Fixed::toFloat( void ) const
 {
 	// std::cout << "toFloat member function called" << std::endl;
-	return ((float)this->getRawBits() / (1 << this->_fractional_bits));
+	return ((float)this->getRawBits() / (1 << Fixed::getFractionalBits()));
 }
 
 int		Fixed::toInt( void ) const
 {
 	// std::cout << "toInt member function called" << std::endl;
-	return (this->getRawBits() >> this->_fractional_bits);
+	return (this->getRawBits() >> Fixed::getFractionalBits());
 }
