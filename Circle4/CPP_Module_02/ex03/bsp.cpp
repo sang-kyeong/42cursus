@@ -3,13 +3,11 @@
 
 
 #include <iostream>
-Fixed	crossProduct( Point const a, Point const b )
-{
+Fixed	crossProduct( Point const a, Point const b ) {
 	return (a.getX() * b.getY()) - (a.getY() * b.getY());
 }
 
-bool	bsp ( Point const a, Point const b, Point const c, Point const point )
-{
+bool	bsp ( Point const a, Point const b, Point const c, Point const point ) {
 	Fixed	zero = Fixed(0);
 	Point	AB, AP, BC, BP, CA, CP;
 
