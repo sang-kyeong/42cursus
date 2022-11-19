@@ -2,14 +2,20 @@
 #include <iomanip>
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap ( void ) : name("no name"), hit_points(0), energy_points(0), attack_damage(0), alive(true) {
-	std::cout << "A ClapTrap is created" << std::endl;
+ClapTrap::ClapTrap ( void )
+ : name("no name"), hit_points(0), energy_points(0), attack_damage(0), alive(true) {
+	std::cout << "A ClapTrap is created." << std::endl;
 }
-ClapTrap::ClapTrap ( const ClapTrap & other ) : name(other.name), hit_points(other.hit_points), energy_points(other.energy_points), attack_damage(other.attack_damage), alive(true) {
-	std::cout << "A ClapTrap " << this->name << " is created" << std::endl;
+ClapTrap::ClapTrap ( const ClapTrap & other )
+	 : name(other.name), hit_points(other.hit_points), energy_points(other.energy_points), attack_damage(other.attack_damage), alive(true) {
+	std::cout << "A ClapTrap " << this->name << " is created." << std::endl;
 }
-ClapTrap::ClapTrap ( std::string name ) : name(name), hit_points(10), energy_points(10), attack_damage(0), alive(true) {
-	std::cout << "A ClapTrap " << this->name << " is created" << std::endl;
+ClapTrap::ClapTrap ( std::string name )
+	 : name(name), hit_points(10), energy_points(10), attack_damage(0), alive(true) {
+	std::cout << "A ClapTrap " << this->name << " is created." << std::endl;
+}
+ClapTrap::ClapTrap ( std::string name, int hp, int ep, int damage) : name(name), hit_points(hp), energy_points(ep), attack_damage(damage), alive(true) {
+	std::cout << "A ClapTrap " << this->name << " is created." << std::endl;
 }
 
 ClapTrap &	ClapTrap::operator= (const ClapTrap &other ) {

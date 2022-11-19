@@ -21,6 +21,7 @@ public:
 	ClapTrap ( void );
 	ClapTrap ( const ClapTrap & other );
 	ClapTrap ( std::string name );
+	ClapTrap ( std::string name, int hp, int ep, int damage );
 
 	ClapTrap &	operator= (const ClapTrap &other );
 
