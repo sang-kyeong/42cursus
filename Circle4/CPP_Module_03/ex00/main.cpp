@@ -1,33 +1,33 @@
 #include <iostream>
 #include "ClapTrap.hpp"
+#include "Battle.hpp"
 
 int main (int argc, char *argv[])
 {
-	if (argc != 3)
+	if (argc != 2)
 	{
-		std::cout << "please input two players' name." << std::endl;
-		return 1;
+		std::cout << "please input your name" << std::endl;
+		return (1);
 	}
 
-	ClapTrap player1(argv[1]);
-	ClapTrap player2(argv[2]);
-
-	player1.printInfo();
-	player2.printInfo();
-
-	for (int i = 0; i < 12; i++)
 	{
-		player1.attack(player2.getName());
-		player2.takeDamage(player1.getAttackDamage());
+		ClapTrap	player(argv[1]), enemy("sangkkim");
+		Battle		battle(player, enemy);
+
+		std::string	buffer;
+		std::cout << "Press Enter" << std::endl;
+		std::getline(std::cin, buffer);
+
+		battle.start();
+		while (true)
+		{
+			battle.playerTurn();
+			if (battle.isEnd())
+				break ;
+			battle.enemyTurn();
+			if (battle.isEnd())
+				break ;
+		}
+		battle.end();
 	}
-
-	std::cout << std::endl << std::endl;
-
-	for (int i = 0; i < 5; i++)
-	{
-		player2.beRepaired(3);
-	}
-
-	player1.printInfo();
-	player2.printInfo();
 }

@@ -3,6 +3,28 @@
 
 # include <string>
 
+# define IMG_CL4P_TP_LIVE_001	"         ┃          "
+# define IMG_CL4P_TP_LIVE_002	"     ┌┬──┸────┬┐    "
+# define IMG_CL4P_TP_LIVE_003	"     ││  ╭╭╮  ││    "
+# define IMG_CL4P_TP_LIVE_004	"   & │ ╲ ╰╰╯ ╱ │ ┌  "
+# define IMG_CL4P_TP_LIVE_005	"   │ │  ╲___╱  │ ├  "
+# define IMG_CL4P_TP_LIVE_006	"   └─╲   ╲_╱   ╱─┘  "
+# define IMG_CL4P_TP_LIVE_007	"      ╲       ╱     "
+# define IMG_CL4P_TP_LIVE_008	"       ╲╭┬─┬╮╱      "
+# define IMG_CL4P_TP_LIVE_009	"         │ │        "
+# define IMG_CL4P_TP_LIVE_010	"         ╰─╯        "
+
+# define IMG_CL4P_TP_DEAD_001	"         ┃          "
+# define IMG_CL4P_TP_DEAD_002	"     ┌┬──┸────┬┐    "
+# define IMG_CL4P_TP_DEAD_003	"     ││  ╳ ╳  ││    "
+# define IMG_CL4P_TP_DEAD_004	"     │ ╲     ╱ │ ┌─┐"
+# define IMG_CL4P_TP_DEAD_005	"     │  ╲___╱  │ ├─┘"
+# define IMG_CL4P_TP_DEAD_006	"   ┌─╲   ╲_╱   ╱─┘  "
+# define IMG_CL4P_TP_DEAD_007	"   │  ╲       ╱     "
+# define IMG_CL4P_TP_DEAD_008	"   &   ╲╭┬─┬╮╱      "
+# define IMG_CL4P_TP_DEAD_009	"         │ │        "
+# define IMG_CL4P_TP_DEAD_010	"         ╰─╯        "
+
 class ClapTrap
 {
 
@@ -14,9 +36,11 @@ private:
 	int			attack_damage;
 	bool		alive;
 
-	static const int	max_hit_points = 20;
 
 public:
+	static const int	max_hit_points = 10;
+	static const int	repair_amount = 2;
+	static const int	max_index = 3;
 
 	ClapTrap ( void );
 	ClapTrap ( const ClapTrap & other );
@@ -27,28 +51,20 @@ public:
 
 	~ClapTrap ( void );
 
-	void	attack( const std::string& target );
+	void	attack ( const std::string& target );
 	void	takeDamage ( unsigned int amount );
 	void	beRepaired ( unsigned int amount );
 
-	const std::string &	getName ( void );
-	int		getAttackDamage ( void );
-	bool	isAlive ( void );
+	const std::string &	getName ( void ) const ;
+	int		getHitPoints ( void ) const ;
+	int		getEnergyPoints ( void ) const ;
+	int		getAttackDamage ( void ) const ;
+	bool	isAlive ( void ) const ;
 
-	void	printInfo ( void );
-	// Clap Trap
-	// x- name ---------------------------------x
-	// |                                        |
-	// |    ________       Type : CL4P-TP       |
-	// | &  |\ (@)/|                            |
-	// | l  | \__/ |  r    Hit points    :  10  |
-	// | ^--|      |--^    Energy points :  10  |
-	// |     \____/        Attack Damage :   0  |
-	// |      |#|                               |
-	// |      |#|                               |
-	// |                                        |
-	// x----------------------------------------x
-
+	void	printOption ( void ) const;
+	void	action (int index, ClapTrap &other );
+	void	drawPlayer ( std::string screen[] ) const;
+	void	drawEnemy ( std::string screen[] ) const;
 };
 
 #endif //__CLAPTRAP_H__
