@@ -2,8 +2,13 @@
 #include "ClapTrap.hpp"
 #include "Battle.hpp"
 
+void	check_leaks ( void ) {
+	system("leaks ex00");
+}
+
 int main (int argc, char *argv[])
 {
+	atexit(check_leaks);
 	if (argc != 2)
 	{
 		std::cout << "please input your name" << std::endl;

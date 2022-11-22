@@ -1,4 +1,4 @@
-NAME := ex00
+NAME := ex01
 
 CXX := c++
 CXXFLAGS := -Wall -Wextra -Werror
@@ -7,7 +7,7 @@ CPPFLAGS := -MMD
 
 # RM := rm -f
 
-SRCS = main.cpp ClapTrap.cpp
+SRCS = main.cpp ClapTrap.cpp Battle.cpp
 OBJS := $(SRCS:.cpp=.o)
 DEPS := $(SRCS:.cpp=.d)
 
