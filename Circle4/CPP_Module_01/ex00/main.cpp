@@ -9,8 +9,8 @@ int	main(void) {
 	Zombie	*zombie;
 
 	zombie = newZombie("heap");
-	zombie->anounce();
+	zombie->announce();
 	randomChump("stack");
-	zombie->anounce();
+	zombie->announce();
 	delete (zombie);
 }

@@ -14,7 +14,7 @@ public:
 	~Zombie ( void );
 
 	void	set_name(std::string);
-	void	anounce ( void );
+	void	announce ( void );
 };
 
 #endif //__ZOMBIE_H__
