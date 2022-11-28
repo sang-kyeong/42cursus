@@ -1,57 +1,46 @@
 #include <iostream>
+#include <sstream>
 #include "Point.hpp"
 
 bool	bsp ( Point const a, Point const b, Point const c, Point const point );
 
-Point	getPointFromUser ( void )
+Point	getPointFromString ( std::string arg )
 {
-	Point	point;
-	float	x, y;
-
-	std::cout << "format is : \'x y\'" << std::endl;
-	while (true)
+	std::stringstream	ss;
+	float				x, y;
+	Point				p;
+	
+	ss = std::stringstream(arg);
+	ss >> x >> y;
+	if (ss.fail())
 	{
-		std::cin >> x >> y;
-		if (std::cin.fail())
-		{
-			std::cout << "Wrong format please type again" << std::endl;
-			std::cin.clear();
-			std::cin.ignore(1024, '\n');
-		}
-		else
-			break ;
+		std::cout << "Wrong format" << std::endl;
+		exit(1);
 	}
-	std::cin.ignore(1024, '\n');
-	point = Point(Fixed(x), Fixed(y));
-	std::cout << std::endl;
-	return (point);
+	return (Point(x, y));
 }
 
-int main ( void ) {
+int main ( int argc, char *argv[] ) {
+	Point				vertex[3], point;
 
-	Point	a, b, c, point;
-
-	std::cout << "type x, y coordinates of point A on the triangle" << std::endl;
-	a = getPointFromUser();
-	std::cout << "type x, y coordinates of point B on the triangle" << std::endl;
-	b = getPointFromUser();
-	std::cout << "type x, y coordinates of point C on the triangle" << std::endl;
-	c = getPointFromUser();
-
-	std::cout << "And then, type x, y coordinates of point which you want to test" << std::endl;
-	point = getPointFromUser();
+	if (argc != 5)
+		return (1);
+	vertex[0] = getPointFromString(argv[1]);
+	vertex[1] = getPointFromString(argv[2]);
+	vertex[2] = getPointFromString(argv[3]);
+	point = getPointFromString(argv[4]);
 
 	std::cout << "Triangle" << std::endl;
-	std::cout << "\t" << a << std::endl;
-	std::cout << "\t" << b << std::endl;
-	std::cout << "\t" << c << std::endl;
+	std::cout << "\t" << vertex[0] << std::endl;
+	std::cout << "\t" << vertex[1] << std::endl;
+	std::cout << "\t" << vertex[2] << std::endl;
 	std::cout << "Point to test" << std::endl;
 	std::cout << "\t" << point << std::endl << std::endl;
 
-	if (bsp(a, b, c, point))
-		std::cout << "Point is inside of triangle" << std::endl;
+	if (bsp(vertex[0], vertex[1], vertex[2], point))
+		std::cout << "The point is inside of triangle" << std::endl;
 	else
-		std::cout << "Point is out of triangle" << std::endl;
+		std::cout << "The point is out of triangle" << std::endl;
 
 	return 0;
 }
