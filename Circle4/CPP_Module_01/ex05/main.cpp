@@ -11,7 +11,9 @@ int	main(void) {
 	{
 		std::cout << "[Me]" << std::endl << "> ";
 		std::getline(std::cin, input);
-		if (input.compare("EXIT") == 0)
+		if (std::cin.eof())
+			return (1);
+		else if (input.compare("EXIT") == 0)
 			break ;
 		else
 		{
