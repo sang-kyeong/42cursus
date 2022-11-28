@@ -106,10 +106,11 @@ void	Account::_displayTimestamp( void ) {
 
 	now = std::time(nullptr);
 	tm = localtime(&now);
-	std::cout << "[" << std::setprecision(4) << tm->tm_year + 1900;
-	std::cout << std::setprecision(2) << tm->tm_mon + 1;
-	std::cout << std::setprecision(2) << tm->tm_mday;
-	std::cout << "_" << std::setprecision(2) << tm->tm_hour;
-	std::cout << std::setprecision(2) << tm->tm_min;
-	std::cout << std::setprecision(2) << tm->tm_sec << "] ";
+	std::cout << "["
+		<< std::setw(4) << tm->tm_year + 1900
+		<< std::setw(2) << tm->tm_mon + 1
+		<< std::setw(2) << tm->tm_mday << "_"
+		<< std::setw(2) << tm->tm_hour
+		<< std::setw(2) << tm->tm_min
+		<< std::setw(2) << tm->tm_sec << "] ";
 }

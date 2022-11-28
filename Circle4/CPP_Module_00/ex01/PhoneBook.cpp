@@ -18,9 +18,13 @@ std::string get_input(std::string field_name) {
 	{
 		std::cout << field_name << "\t: ";
 		std::getline(std::cin, input);
-		if (input.find("\t") != input.npos)
+		if (std::cin.eof())
+			exit(1);
+		else if (input.find("\t") != input.npos)
 			std::cout << "Sorry, tab character isn't allowed" << std::endl;
-		else if (input.length() > 0)
+		else if (input.find_first_not_of(' ') == std::string::npos)
+			std::cout << "This column cannot be blank" << std::endl;
+		else
 			break ;
 	}
 	return (input);
@@ -52,7 +56,9 @@ void	PhoneBook::search_contact(void) const {
 	{
 		std::cout << "index > ";
 		std::cin >> index;
-		if (std::cin.fail())
+		if (std::cin.eof())
+			exit(1);
+		else if (std::cin.fail())
 		{
 			std::cin.clear();
 			std::cout << "Wrong input" << std::endl;
