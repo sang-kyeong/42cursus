@@ -3,68 +3,39 @@
 
 # include <string>
 
-# define IMG_CL4P_TP_LIVE_001	"         ┃          "
-# define IMG_CL4P_TP_LIVE_002	"     ┌┬──┸────┬┐    "
-# define IMG_CL4P_TP_LIVE_003	"     ││  ╭╭╮  ││    "
-# define IMG_CL4P_TP_LIVE_004	"   & │ ╲ ╰╰╯ ╱ │ ┌  "
-# define IMG_CL4P_TP_LIVE_005	"   │ │  ╲___╱  │ ├  "
-# define IMG_CL4P_TP_LIVE_006	"   └─╲   ╲_╱   ╱─┘  "
-# define IMG_CL4P_TP_LIVE_007	"      ╲       ╱     "
-# define IMG_CL4P_TP_LIVE_008	"       ╲╭┬─┬╮╱      "
-# define IMG_CL4P_TP_LIVE_009	"         │ │        "
-# define IMG_CL4P_TP_LIVE_010	"         ╰─╯        "
-
-# define IMG_CL4P_TP_DEAD_001	"         ┃          "
-# define IMG_CL4P_TP_DEAD_002	"     ┌┬──┸────┬┐    "
-# define IMG_CL4P_TP_DEAD_003	"     ││  ╳ ╳  ││    "
-# define IMG_CL4P_TP_DEAD_004	"     │ ╲     ╱ │ ┌─┐"
-# define IMG_CL4P_TP_DEAD_005	"     │  ╲___╱  │ ├─┘"
-# define IMG_CL4P_TP_DEAD_006	"   ┌─╲   ╲_╱   ╱─┘  "
-# define IMG_CL4P_TP_DEAD_007	"   │  ╲       ╱     "
-# define IMG_CL4P_TP_DEAD_008	"   &   ╲╭┬─┬╮╱      "
-# define IMG_CL4P_TP_DEAD_009	"         │ │        "
-# define IMG_CL4P_TP_DEAD_010	"         ╰─╯        "
-
 class ClapTrap
 {
 
-protected:
+	protected:
+		
+		static const unsigned int	_max_hp = 10;
+		static const unsigned int	_max_ep = 10;
+		static const unsigned int	_default_dmg = 0;
 
-	std::string	name;
-	int			hit_points;
-	int			energy_points;
-	int			attack_damage;
-	bool		alive;
+		std::string					_name;
+		unsigned int				_hit_points;
+		unsigned int				_energe_points;
+		unsigned int				_attack_damage;
 
+		ClapTrap ( std::string name, unsigned int hp, unsigned int ep, unsigned int dmg);
 
-public:
-	static const int	max_hit_points = 10;
-	static const int	repair_amount = 2;
-	static const int	max_index = 3;
+	public:
 
-	ClapTrap ( void );
-	ClapTrap ( const ClapTrap & other );
-	ClapTrap ( std::string name );
-	ClapTrap ( std::string name, int hp, int ep, int damage );
+		ClapTrap ( void );
+		ClapTrap ( std::string name );
+		ClapTrap ( const ClapTrap & other );
 
-	ClapTrap &	operator= (const ClapTrap &other );
+		~ClapTrap ( void );
 
-	~ClapTrap ( void );
+		ClapTrap &	operator= ( const ClapTrap & other );
 
-	void	attack ( const std::string& target );
-	void	takeDamage ( unsigned int amount );
-	void	beRepaired ( unsigned int amount );
+		void	attack ( const std::string & target );
+		void	takeDamage ( unsigned int amount );
+		void	beRepaired ( unsigned int amount );
 
-	const std::string &	getName ( void ) const ;
-	int		getHitPoints ( void ) const ;
-	int		getEnergyPoints ( void ) const ;
-	int		getAttackDamage ( void ) const ;
-	bool	isAlive ( void ) const ;
+		const std::string &	getName (void);
+		unsigned int	getAttackDamage ( void );
 
-	void	printOption ( void ) const;
-	void	action (int index, ClapTrap &other );
-	void	drawPlayer ( std::string screen[] ) const;
-	void	drawEnemy ( std::string screen[] ) const;
 };
 
 #endif //__CLAPTRAP_H__

@@ -7,7 +7,7 @@ CPPFLAGS := -MMD
 
 # RM := rm -f
 
-SRCS = main.cpp ClapTrap.cpp Battle.cpp
+SRCS = main.cpp ClapTrap.cpp
 OBJS := $(SRCS:.cpp=.o)
 DEPS := $(SRCS:.cpp=.d)
 

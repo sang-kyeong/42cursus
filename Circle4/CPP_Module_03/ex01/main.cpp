@@ -1,38 +1,21 @@
 #include <iostream>
 #include "ClapTrap.hpp"
-#include "Battle.hpp"
 
-void	check_leaks ( void ) {
-	system("leaks ex00");
-}
-
-int main (int argc, char *argv[])
+int main( void )
 {
-	atexit(check_leaks);
-	if (argc != 2)
-	{
-		std::cout << "please input your name" << std::endl;
+	std::string	name;
+
+	std::cout << "Enter your name" << std::endl;
+	std::cin >> name;
+	if (std::cin.fail())
 		return (1);
-	}
+	ClapTrap	player(name), enemy("sangkkim");
 
+	for (int i = 0; i < 12; i++)
 	{
-		ClapTrap	player(argv[1]), enemy("sangkkim");
-		Battle		battle(player, enemy);
-
-		std::string	buffer;
-		std::cout << "Press Enter" << std::endl;
-		std::getline(std::cin, buffer);
-
-		battle.start();
-		while (true)
-		{
-			battle.playerTurn();
-			if (battle.isEnd())
-				break ;
-			battle.enemyTurn();
-			if (battle.isEnd())
-				break ;
-		}
-		battle.end();
+		player.attack(enemy.getName());
+		enemy.takeDamage(player.getAttackDamage());
+		enemy.beRepaired(enemy.getAttackDamage());
 	}
+	return (0);
 }
