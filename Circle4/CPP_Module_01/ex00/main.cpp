@@ -5,7 +5,8 @@
 Zombie*	newZombie( std::string name );
 void	randomChump( std::string name );
 
-int	main(void) {
+int	main(void)
+{
 	Zombie	*zombie;
 
 	zombie = newZombie("heap");

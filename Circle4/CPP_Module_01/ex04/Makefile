@@ -7,7 +7,7 @@ CPPFLAGS := -MMD
 
 # RM := rm -f
 
-SRCS = main.cpp sed_for_winner.cpp
+SRCS = main.cpp
 OBJS := $(SRCS:.cpp=.o)
 DEPS := $(SRCS:.cpp=.d)
 

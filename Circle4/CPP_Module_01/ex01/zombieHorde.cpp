@@ -1,7 +1,8 @@
 #include <sstream>
 #include "Zombie.hpp"
 
-Zombie*	zombieHorde( int N, std::string name ) {
+Zombie*	zombieHorde( int N, std::string name )
+{
 	Zombie	*zombie_horde = new Zombie[N];
 
 	if (N <= 0)

@@ -63,12 +63,12 @@ void	Harl::filter( std::string level ) {
 			std::cout << std::endl;
 			break ;
 		default :
-			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+			this->normal();
 	}
 }
 
-void	Harl::debug ( void )	{ std::cout << MSG_DEBUG << std::endl; }
-void	Harl::info ( void )		{ std::cout << MSG_INFO << std::endl; }
-void	Harl::warning ( void )	{ std::cout << MSG_WARNING << std::endl; }
-void	Harl::error ( void )	{ std::cout << MSG_ERROR << std::endl; }
-void	Harl::normal (void )	{ std::cout << MSG_NORMAL << std::endl; }
+void	Harl::debug ( void )	{ std::cout << MESSAGE_DEBUG	<< std::endl; }
+void	Harl::info ( void )		{ std::cout << MESSAGE_INFO		<< std::endl; }
+void	Harl::warning ( void )	{ std::cout << MESSAGE_WARNING	<< std::endl; }
+void	Harl::error ( void )	{ std::cout << MESSAGE_ERROR	<< std::endl; }
+void	Harl::normal (void )	{ std::cout << MESSAGE_NORMAL	<< std::endl; }
