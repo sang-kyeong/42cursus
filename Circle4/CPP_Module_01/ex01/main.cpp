@@ -17,11 +17,13 @@ int	main ( int argc, char *argv[] )
 	ss >> n;
 	if (ss.fail())
 		return (1);
-	std::cout << "Name of Zombies : " << argv[2] << std::endl;
-	std::cout << "Number of Zombies : " << n << std::endl << std::endl;
+	if (n <= 0)
+		return (1);
+	std::cout << "Number of Zombies : " << n << std::endl;
+	std::cout << "Name of Zombies : " << argv[2] << std::endl << std::endl;
 
 	zombie_horde = zombieHorde(n, argv[2]);
-	for (int i = 0; i < n; i++)
+	for (unsigned int i = 0; i < n; i++)
 		zombie_horde[i].announce();
 	delete[] (zombie_horde);
 	return (0);

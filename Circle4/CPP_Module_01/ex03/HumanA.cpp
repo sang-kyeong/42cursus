@@ -5,12 +5,12 @@
 HumanA::HumanA(std::string name, Weapon &weapon)
 : _name(name), _weapon(weapon)
 {
-	std::cout << this->_name << " (이)가 나타났다. 그는 " << this->_weapon.getType() << "(을) 를 들고있다." << std::endl;
+	std::cout << this->_name << " is constructed with " << this->_weapon.getType() << std::endl;
 }
 
 HumanA::~HumanA( void )
 {
-	std::cout << this->_name << " (이)가 사라졌다." << std::endl;
+	std::cout << this->_name << " is destructed" << std::endl;
 }
 
 void	HumanA::attack( void )

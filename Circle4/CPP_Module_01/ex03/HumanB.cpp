@@ -5,12 +5,12 @@
 HumanB::HumanB(std::string name)
 : _name(name), _weapon(NULL)
 {
-	std::cout << this->_name << " (이)가 나타났다. 그는 아무것도 들고있지 않다." << std::endl;
+	std::cout << this->_name << " is constructed" << std::endl;
 }
 
 HumanB::~HumanB( void )
 {
-	std::cout << this->_name << " (이)가 사라졌다." << std::endl;
+	std::cout << this->_name << " is destructed" << std::endl;
 }
 
 void	HumanB::setWeapon(Weapon &weapon)
