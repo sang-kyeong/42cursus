@@ -4,7 +4,7 @@
 
 #include <iostream>
 Fixed	crossProduct( Point const a, Point const b ) {
-	return (a.getX() * b.getY()) - (a.getY() * b.getY());
+	return (a.getX() * b.getY()) - (a.getY() * b.getX());
 }
 
 bool	bsp ( Point const a, Point const b, Point const c, Point const point ) {
@@ -13,18 +13,20 @@ bool	bsp ( Point const a, Point const b, Point const c, Point const point ) {
 
 	if (crossProduct(b - a, point - a) > zero)
 	{
-		if (crossProduct(c - b, point - b) < zero)
+		if (crossProduct(c - b, point - b) <= zero)
 			return (false);
-		if (crossProduct(a - c, point - c) < zero)
+		if (crossProduct(a - c, point - c) <= zero)
+			return (false);
+	}
+	else if (crossProduct(b - a, point - a) < zero)
+	{
+		if (crossProduct(c - b, point - b) >= zero)
+			return (false);
+		if (crossProduct(a - c, point - c) >= zero)
 			return (false);
 	}
 	else
-	{
-		if (crossProduct(c - b, point - b) > zero)
-			return (false);
-		if (crossProduct(a - c, point - c) > zero)
-			return (false);
-	}
+		return (false);
 
 	return (true);
 }

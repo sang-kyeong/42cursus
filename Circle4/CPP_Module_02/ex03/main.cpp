@@ -6,11 +6,9 @@ bool	bsp ( Point const a, Point const b, Point const c, Point const point );
 
 Point	getPointFromString ( std::string arg )
 {
-	std::stringstream	ss;
+	std::stringstream	ss(arg);
 	float				x, y;
-	Point				p;
-	
-	ss = std::stringstream(arg);
+
 	ss >> x >> y;
 	if (ss.fail())
 	{
