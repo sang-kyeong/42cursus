@@ -8,7 +8,7 @@
 Form::Form ( void )
 : _name(), _signed(false), _sign_requirement(0), _execute_requirement(0)
 {
-	std::cout << DARK_GRAY << "[Form] default constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[Form] default constructor" << WHITE << std::endl;
 }
 
 Form::Form ( const std::string name, const unsigned int sign_requirement, const unsigned int execute_requirement)
@@ -18,18 +18,18 @@ Form::Form ( const std::string name, const unsigned int sign_requirement, const 
 		throw Form::GradeTooHighException();
 	else if (_sign_requirement > 150 || _execute_requirement > 150)
 		throw Form::GradeTooLowException();
-	std::cout << DARK_GRAY << "[Form] parameter constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[Form] parameter constructor" << WHITE << std::endl;
 }
 
 Form::Form ( const Form & other )
 : _name(other._name), _signed(other._signed), _sign_requirement(other._sign_requirement), _execute_requirement(other._execute_requirement)
 {
-	std::cout << DARK_GRAY << "[Form] copy constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[Form] copy constructor" << WHITE << std::endl;
 }
 
 Form::~Form ( void )
 {
-	std::cout << DARK_GRAY << "[Form] destructor" << WHITE << std::endl;
+	std::cout << BLACK << "[Form] destructor" << WHITE << std::endl;
 }
 
 Form &	Form::operator= ( const Form & other )

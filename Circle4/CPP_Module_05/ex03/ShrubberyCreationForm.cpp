@@ -5,24 +5,24 @@
 
 ShrubberyCreationForm::ShrubberyCreationForm ( void ) : AForm()
 {
-	std::cout << DARK_GRAY << "[ShrubberyCreationForm] default constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[ShrubberyCreationForm] default constructor" << WHITE << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm ( const std::string target )
  : AForm("Shrubbery Creation", 145, 137), _target(target)
 {
-	std::cout << DARK_GRAY << "[ShrubberyCreationForm] name constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[ShrubberyCreationForm] name constructor" << WHITE << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm ( const ShrubberyCreationForm & other )
  : AForm(other), _target(other._target)
 {
-	std::cout << DARK_GRAY << "[ShrubberyCreationForm] copy constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[ShrubberyCreationForm] copy constructor" << WHITE << std::endl;
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm ( void )
 {
-	std::cout << DARK_GRAY << "[ShrubberyCreationForm] destructor" << WHITE << std::endl;
+	std::cout << BLACK << "[ShrubberyCreationForm] destructor" << WHITE << std::endl;
 }
 
 ShrubberyCreationForm &	ShrubberyCreationForm::operator= ( const ShrubberyCreationForm & other )

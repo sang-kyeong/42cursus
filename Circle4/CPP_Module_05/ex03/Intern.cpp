@@ -5,18 +5,18 @@
 
 Intern::Intern ( void )
 {
-	std::cout << GREEN << "[Intern] default constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[Intern] default constructor" << WHITE << std::endl;
 }
 
 Intern::Intern ( const Intern & other )
 {
 	(void)other;
-	std::cout << GREEN << "[Intern] copy constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[Intern] copy constructor" << WHITE << std::endl;
 }
 
 Intern::~Intern ( void )
 {
-	std::cout << RED << "[Intern] destructor" << WHITE << std::endl;
+	std::cout << BLACK << "[Intern] destructor" << WHITE << std::endl;
 }
 
 Intern &	Intern::operator= ( const Intern & other )

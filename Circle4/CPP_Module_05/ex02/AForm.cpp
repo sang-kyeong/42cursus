@@ -8,7 +8,7 @@
 AForm::AForm ( void )
 : _name(), _signed(false), _sign_requirement(0), _execute_requirement(0)
 {
-	std::cout << DARK_GRAY << "[AForm] default constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[AForm] default constructor" << WHITE << std::endl;
 }
 
 AForm::AForm ( const std::string name, const unsigned int sign_requirement, const unsigned int execute_requirement)
@@ -18,18 +18,18 @@ AForm::AForm ( const std::string name, const unsigned int sign_requirement, cons
 		throw AForm::GradeTooHighException();
 	else if (_sign_requirement > 150 || _execute_requirement > 150)
 		throw AForm::GradeTooLowException();
-	std::cout << DARK_GRAY << "[AForm] parameter constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[AForm] parameter constructor" << WHITE << std::endl;
 }
 
 AForm::AForm ( const AForm & other )
 : _name(other._name), _signed(other._signed), _sign_requirement(other._sign_requirement), _execute_requirement(other._execute_requirement)
 {
-	std::cout << DARK_GRAY << "[AForm] copy constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[AForm] copy constructor" << WHITE << std::endl;
 }
 
 AForm::~AForm ( void )
 {
-	std::cout << DARK_GRAY << "[AForm] destructor" << WHITE << std::endl;
+	std::cout << BLACK << "[AForm] destructor" << WHITE << std::endl;
 }
 
 AForm &	AForm::operator= ( const AForm & other )

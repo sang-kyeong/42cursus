@@ -4,24 +4,24 @@
 
 PresidentialPardonForm::PresidentialPardonForm ( void ) : AForm()
 {
-	std::cout << DARK_GRAY << "[PresidentialPardonForm] default constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[PresidentialPardonForm] default constructor" << WHITE << std::endl;
 }
 
 PresidentialPardonForm::PresidentialPardonForm ( const std::string target )
  : AForm("Presidential Pardon", 25, 5), _target(target)
 {
-	std::cout << DARK_GRAY << "[PresidentialPardonForm] name constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[PresidentialPardonForm] name constructor" << WHITE << std::endl;
 }
 
 PresidentialPardonForm::PresidentialPardonForm ( const PresidentialPardonForm & other )
  : AForm(other), _target(other._target)
 {
-	std::cout << DARK_GRAY << "[PresidentialPardonForm] copy constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[PresidentialPardonForm] copy constructor" << WHITE << std::endl;
 }
 
 PresidentialPardonForm::~PresidentialPardonForm ( void )
 {
-	std::cout << DARK_GRAY << "[PresidentialPardonForm] destructor" << WHITE << std::endl;
+	std::cout << BLACK << "[PresidentialPardonForm] destructor" << WHITE << std::endl;
 }
 
 PresidentialPardonForm &	PresidentialPardonForm::operator= ( const PresidentialPardonForm & other )

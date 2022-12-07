@@ -4,24 +4,24 @@
 
 RobotomyRequestForm::RobotomyRequestForm ( void ) : AForm()
 {
-	std::cout << DARK_GRAY << "[RobotomyRequestForm] default constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[RobotomyRequestForm] default constructor" << WHITE << std::endl;
 }
 
 RobotomyRequestForm::RobotomyRequestForm ( const std::string target )
  : AForm("Robotomy Request", 72, 45), _target(target)
 {
-	std::cout << DARK_GRAY << "[RobotomyRequestForm] name constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[RobotomyRequestForm] name constructor" << WHITE << std::endl;
 }
 
 RobotomyRequestForm::RobotomyRequestForm ( const RobotomyRequestForm & other )
  : AForm(other), _target(other._target)
 {
-	std::cout << DARK_GRAY << "[RobotomyRequestForm] copy constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[RobotomyRequestForm] copy constructor" << WHITE << std::endl;
 }
 
 RobotomyRequestForm::~RobotomyRequestForm ( void )
 {
-	std::cout << DARK_GRAY << "[RobotomyRequestForm] destructor" << WHITE << std::endl;
+	std::cout << BLACK << "[RobotomyRequestForm] destructor" << WHITE << std::endl;
 }
 
 RobotomyRequestForm &	RobotomyRequestForm::operator= ( const RobotomyRequestForm & other )

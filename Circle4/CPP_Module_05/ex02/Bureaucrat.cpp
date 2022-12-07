@@ -6,12 +6,12 @@
 
 Bureaucrat::Bureaucrat ( void ) : _name(), _grade(Bureaucrat::_lowest_grade)
 {
-	std::cout << DARK_GRAY << "[Bureaucrat] default constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[Bureaucrat] default constructor" << WHITE << std::endl;
 }
 
 Bureaucrat::Bureaucrat ( const Bureaucrat & other ) : _name(other._name), _grade(other._grade)
 {
-	std::cout << DARK_GRAY << "[Bureaucrat] copy constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[Bureaucrat] copy constructor" << WHITE << std::endl;
 }
 
 Bureaucrat::Bureaucrat ( const std::string name, unsigned int grade ) : _name(name), _grade(grade)
@@ -20,12 +20,12 @@ Bureaucrat::Bureaucrat ( const std::string name, unsigned int grade ) : _name(na
 		throw Bureaucrat::GradeTooHighException();
 	else if (this->_grade > Bureaucrat::_lowest_grade)
 		throw Bureaucrat::GradeTooLowException();
-	std::cout << DARK_GRAY << "[Bureaucrat] parameter constructor" << WHITE << std::endl;
+	std::cout << BLACK << "[Bureaucrat] parameter constructor" << WHITE << std::endl;
 }
 
 Bureaucrat::~Bureaucrat ( void )
 {
-	std::cout << DARK_GRAY << "[Bureaucrat] destructor" << WHITE << std::endl;
+	std::cout << BLACK << "[Bureaucrat] destructor" << WHITE << std::endl;
 }
 
 Bureaucrat &	Bureaucrat::operator= ( const Bureaucrat & other )
