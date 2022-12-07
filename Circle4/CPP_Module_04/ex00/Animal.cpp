@@ -3,28 +3,28 @@
 
 Animal::Animal ( void )
 {
-	std::cout << "Animal constructor called" << std::endl;
+	std::cout << GREEN << "[Animal] default constructor" << WHITE << std::endl;
 }
 
 Animal::Animal ( std::string type ) : type(type)
 {
-	std::cout << "Animal type constructor called" << std::endl;
+	std::cout << GREEN << "[Animal] type constructor" << WHITE << std::endl;
 }
 
 Animal::Animal ( const Animal & other ) : type(other.type)
 {
-	std::cout << "Animal copy constructor called" << std::endl;
+	std::cout << GREEN << "[Animal] copy constructor" << WHITE << std::endl;
 }
 
 Animal::~Animal ( void )
 {
-	std::cout << "Animal destructor called" << std::endl;
+	std::cout << RED << "[Animal] destructor" << WHITE << std::endl;
 }
 
 Animal &	Animal::operator= ( const Animal & other )
 {
 	this->type = other.type;
-	return (*this);
+	return *this;
 }
 
 const std::string &	Animal::getType ( void ) const
@@ -34,5 +34,5 @@ const std::string &	Animal::getType ( void ) const
 
 void	Animal::makeSound ( void ) const
 {
-	std::cout << "야옹" << std::endl;
+	std::cout << "동물동물" << std::endl;
 }

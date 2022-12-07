@@ -5,29 +5,43 @@
 #include "Cat.hpp"
 
 #include "WrongAnimal.hpp"
+#include "WrongDog.hpp"
 #include "WrongCat.hpp"
 
 int main()
 {
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	j->makeSound();
-	i->makeSound(); //will output the cat sound!
-	meta->makeSound();
+	{
+		const Animal* meta = new Animal();
+		const Animal* j = new Dog();
+		const Animal* i = new Cat();
 
-	const WrongAnimal* wmeta = new WrongAnimal();
-	const WrongAnimal* wj = new WrongCat();
-	std::cout << wj->getType() << " " << std::endl;
-	wj->makeSound();
-	wmeta->makeSound();
+		std::cout << j->getType() << " " << std::endl;
+		std::cout << i->getType() << " " << std::endl;
+		j->makeSound();
+		i->makeSound(); //will output the cat sound!
+		meta->makeSound();
 
-	delete (meta);
-	delete (j);
-	delete (i);
-	delete (wmeta);
-	delete (wj);
+		delete meta;
+		delete j;
+		delete i;
+	}
+	system("leaks ex00 | grep total");
+	std::cout << std::endl;
+	{
+		const WrongAnimal* meta = new WrongAnimal();
+		const WrongAnimal* j = new WrongDog();
+		const WrongAnimal* i = new WrongCat();
+
+		std::cout << j->getType() << " " << std::endl;
+		std::cout << i->getType() << " " << std::endl;
+		j->makeSound();
+		i->makeSound(); //will output the cat sound!
+		meta->makeSound();
+
+		delete meta;
+		delete j;
+		delete i;
+	}
+	system("leaks ex00 | grep total");
 	return 0;
 }

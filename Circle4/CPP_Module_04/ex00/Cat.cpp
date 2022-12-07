@@ -3,26 +3,26 @@
 
 Cat::Cat ( void ) : Animal("Cat")
 {
-	std::cout << "Cat constructor called" << std::endl;
+	std::cout << GREEN << "[Cat] default constructor" << WHITE << std::endl;
 }
 
-Cat::Cat ( const Cat & other )
+Cat::Cat ( const Cat & other ) : Animal(other)
 {
-	this->type = other.type;
-	std::cout << "Cat copy constructor called" << std::endl;
+	std::cout << GREEN << "[Cat] copy constructor" << WHITE << std::endl;
 }
 
 Cat::~Cat ( void )
 {
-	std::cout << "Cat destructor called" << std::endl;
+	std::cout << RED << "[Cat] destructor" << WHITE << std::endl;
 }
 
 Cat &	Cat::operator= ( const Cat & other )
 {
-	this->type = other.type; return (*this);
+	Animal::operator=(other);
+	return *this;
 }
 
 void	Cat::makeSound ( void ) const
 {
-	std::cout << "콐ㅋ콐콐ㅋㅋㅋ콐켸ㅖㅖㅋ콐ㅋ" << std::endl;
+	std::cout << "야옹" << std::endl;
 }

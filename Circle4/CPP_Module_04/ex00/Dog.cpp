@@ -3,23 +3,23 @@
 
 Dog::Dog ( void ) : Animal("Dog")
 {
-	std::cout << "Dog constructor called" << std::endl;
+	std::cout << GREEN << "[Dog] default constructor" << WHITE << std::endl;
 }
 
-Dog::Dog ( const Dog & other )
+Dog::Dog ( const Dog & other ) : Animal(other)
 {
-	this->type = other.type;
-	std::cout << "Dog copy constructor called" << std::endl;
+	std::cout << GREEN << "[Dog] copy constructor" << WHITE << std::endl;
 }
 
 Dog::~Dog ( void )
 {
-	std::cout << "Dog destructor called" << std::endl;
+	std::cout << RED << "[Dog] destructor" << WHITE << std::endl;
 }
 
 Dog &	Dog::operator= ( const Dog & other )
 {
-	this->type = other.type; return (*this);
+	Animal::operator=(other);
+	return *this;
 }
 
 void	Dog::makeSound ( void ) const

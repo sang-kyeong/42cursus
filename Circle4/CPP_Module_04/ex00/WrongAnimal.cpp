@@ -3,28 +3,28 @@
 
 WrongAnimal::WrongAnimal ( void )
 {
-	std::cout << "Wrong Animal constructor called" << std::endl;
+	std::cout << GREEN << "[WrongAnimal] default constructor" << WHITE << std::endl;
 }
 
 WrongAnimal::WrongAnimal ( std::string type ) : type(type)
 {
-	std::cout << "Wrong Animal type constructor called" << std::endl;
+	std::cout << GREEN << "[WrongAnimal] type constructor" << WHITE << std::endl;
 }
 
 WrongAnimal::WrongAnimal ( const WrongAnimal & other ) : type(other.type)
 {
-	std::cout << "Wrong Animal copy constructor called" << std::endl;
+	std::cout << GREEN << "[WrongAnimal] copy constructor" << WHITE << std::endl;
 }
 
 WrongAnimal::~WrongAnimal ( void )
 {
-	std::cout << "Animal destructor called" << std::endl;
+	std::cout << RED << "[WrongAnimal] destructor" << WHITE << std::endl;
 }
 
 WrongAnimal &	WrongAnimal::operator= ( const WrongAnimal & other )
 {
 	this->type = other.type;
-	return (*this);
+	return *this;
 }
 
 const std::string &	WrongAnimal::getType ( void ) const
@@ -34,5 +34,5 @@ const std::string &	WrongAnimal::getType ( void ) const
 
 void	WrongAnimal::makeSound ( void ) const
 {
-	std::cout << "야옹" << std::endl;
+	std::cout << "동물동물" << std::endl;
 }
