@@ -19,38 +19,33 @@ Intern::~Intern ( void )
 
 Intern &	Intern::operator= ( const Intern & other )
 {
-
+	return *this;
 }
 
 AForm *	Intern::makeForm ( const std::string form_name, const std::string target )
 {
 	AForm	*form;
-	try
+	int	number \
+		= ((form_name == "shrubbery creation") * 1) \
+		+ ((form_name == "robotomy request") * 2) \
+		+ ((form_name == "presidential pardon") * 3);
+	
+	switch (number)
 	{
-		form = makeRobotomyRequestForm(form_name, target);
-		std::cout << "Intern creates " << *form << std::endl;
-		return form;
+	case 1:
+		form = new ShrubberyCreationForm(target);
+		break ;
+	case 2:
+		form = new RobotomyRequestForm(target);
+		break ;
+	case 3:
+		form = new PresidentialPardonForm(target);
+		break ;
+	default :
+		std::cout << RED << "Intern didn't creates " << form_name << " form" << WHITE << std::endl;
+		return NULL;
+		break ;
 	}
-	catch(const std::exception& e)
-	{
-	}
-	try
-	{
-		form = makeRobotomyRequestForm(form_name, target);
-		std::cout << "Intern creates " << *form << std::endl;
-		return form;
-	}
-	catch(const std::exception& e)
-	{
-	}
-	try
-	{
-		form = makePresidentialPardonForm(form_name, target);
-		std::cout << "Intern creates " << *form << std::endl;
-		return form;
-	}
-	catch(const std::exception& e)
-	{
-	}
-	return NULL;
+	std::cout << GREEN << "Intern creates " << form_name << " form" << WHITE << std::endl;
+	return from;
 }

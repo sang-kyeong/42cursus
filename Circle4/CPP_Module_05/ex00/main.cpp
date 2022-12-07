@@ -2,11 +2,12 @@
 #include <iostream>
 #include <exception>
 #include "Bureaucrat.hpp"
+#include "Color.hpp"
 
 int	main ( void )
 {
 	// Exception in Constructor
-	std::cout << MAGENTA << "Exception in Constructor Test1" << NORMAL << std::endl;
+	std::cout << MAGENTA << "** Exception in Constructor Test1 **" << WHITE << std::endl;
 	try
 	{
 		Bureaucrat wrong("sangkkim", 0);
@@ -14,10 +15,11 @@ int	main ( void )
 	}
 	catch (std::exception & e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cout << RED << e.what() << WHITE << std::endl;
 	}
+
 	// Exception in Constructor
-	std::cout << MAGENTA << "Exception in Constructor Test2" << NORMAL << std::endl;
+	std::cout << MAGENTA << "** Exception in Constructor Test2 **" << WHITE << std::endl;
 	try
 	{
 		Bureaucrat wrong("sangkkim", 151);
@@ -25,10 +27,11 @@ int	main ( void )
 	}
 	catch (std::exception & e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cout << RED << e.what() << WHITE << std::endl;
 	}
+
 	// Exception in Decrement
-	std::cout << std::endl << MAGENTA << "Exception in Decrement Test" << NORMAL << std::endl;
+	std::cout << std::endl << MAGENTA << "** Exception in Decrement Test **" << WHITE << std::endl;
 	try
 	{
 		Bureaucrat wrong("sangkkim", 150);
@@ -38,10 +41,11 @@ int	main ( void )
 	}
 	catch (std::exception & e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cout << RED << e.what() << WHITE << std::endl;
 	}
+
 	// No exception
-	std::cout << std::endl << MAGENTA << "No Exception Test" << NORMAL << std::endl;
+	std::cout << std::endl << MAGENTA << "** No Exception Test **" << WHITE << std::endl;
 	try
 	{
 		Bureaucrat wrong("sangkkim", 150);
@@ -53,7 +57,8 @@ int	main ( void )
 	}
 	catch (std::exception & e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cout << RED << e.what() << WHITE << std::endl;
 	}
+	system("leaks ex00 | grep total");
 	return 0;
 }

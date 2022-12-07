@@ -2,15 +2,16 @@
 #include <iostream>
 #include <exception>
 #include "Bureaucrat.hpp"
+#include "Color.hpp"
 
 Bureaucrat::Bureaucrat ( void ) : _name(), _grade(Bureaucrat::_lowest_grade)
 {
-	std::cout << GREEN << "[Bureaucrat] default constructor" << WHITE << std::endl;
+	std::cout << DARK_GRAY << "[Bureaucrat] default constructor" << WHITE << std::endl;
 }
 
 Bureaucrat::Bureaucrat ( const Bureaucrat & other ) : _name(other._name), _grade(other._grade)
 {
-	std::cout << GREEN << "[Bureaucrat] copy constructor" << WHITE << std::endl;
+	std::cout << DARK_GRAY << "[Bureaucrat] copy constructor" << WHITE << std::endl;
 }
 
 Bureaucrat::Bureaucrat ( const std::string name, unsigned int grade ) : _name(name), _grade(grade)
@@ -19,18 +20,21 @@ Bureaucrat::Bureaucrat ( const std::string name, unsigned int grade ) : _name(na
 		throw Bureaucrat::GradeTooHighException();
 	else if (this->_grade > Bureaucrat::_lowest_grade)
 		throw Bureaucrat::GradeTooLowException();
-	std::cout << GREEN << "[Bureaucrat] parameter constructor" << WHITE << std::endl;
+	std::cout << DARK_GRAY << "[Bureaucrat] parameter constructor" << WHITE << std::endl;
 }
 
 Bureaucrat::~Bureaucrat ( void )
 {
-	std::cout << RED << "[Bureaucrat] destructor" << WHITE << std::endl;
+	std::cout << DARK_GRAY << "[Bureaucrat] destructor" << WHITE << std::endl;
 }
 
 Bureaucrat &	Bureaucrat::operator= ( const Bureaucrat & other )
 {
-	// this->_name = other._name;
-	this->_grade = other._grade;
+	if (this != &other)
+	{
+		// this->_name = other._name;
+		this->_grade = other._grade;
+	}
 	return *this;
 }
 
@@ -57,11 +61,11 @@ void	Bureaucrat::signForm ( AForm &form )
 	try
 	{
 		form.beSigned(*this);
-		std::cout << this->_name << " signed " << form.getName() << std::endl;
+		std::cout << GREEN << this->_name << " signed " << form.getName() << WHITE << std::endl;
 	}
 	catch (std::exception & e)
 	{
-		std::cout << this->_name << " couldn’t sign " << form.getName() << " because " << e.what() << std::endl;
+		std::cout << RED << this->_name << " couldn't sign " << form.getName() << " because " << e.what() << WHITE << std::endl;
 	}
 }
 
@@ -70,11 +74,11 @@ void	Bureaucrat::executeForm( AForm const & form )
 	try
 	{
 		form.execute(*this);
-		std::cout << this->_name << " executed " << form.getName() << std::endl;
+		std::cout << GREEN << this->_name << " executed " << form.getName() << WHITE << std::endl;
 	}
 	catch (std::exception & e)
 	{
-		std::cout << this->_name << " couldn’t sign " << form.getName() << " because " << e.what() << std::endl;
+		std::cout << RED << this->_name << " couldn't execute " << form.getName() << " because " << e.what() << WHITE << std::endl;
 	}
 }
 
@@ -90,12 +94,12 @@ unsigned int		Bureaucrat::getGrade ( void ) const
 
 const char *	Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return "Grade Too High";
+	return "Exception: Bureaucrat: Grade Too High";
 }
 
 const char *	Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return "Grade Too Low";
+	return "Exception: Bureaucrat: Grade Too Low";
 }
 
 std::ostream &	operator<< ( std::ostream & os, const Bureaucrat & bureaucrat )

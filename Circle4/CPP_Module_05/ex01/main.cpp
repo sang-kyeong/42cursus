@@ -2,6 +2,7 @@
 #include <iostream>
 #include <exception>
 #include "Bureaucrat.hpp"
+#include "Color.hpp"
 
 int	main ( void )
 {

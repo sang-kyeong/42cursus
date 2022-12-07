@@ -1,32 +1,36 @@
 #include <iostream>
 #include "RobotomyRequestForm.hpp"
+#include "Color.hpp"
 
 RobotomyRequestForm::RobotomyRequestForm ( void ) : AForm()
 {
-	std::cout << GREEN << "[RobotomyRequestForm] default constructor" << WHITE << std::endl;
+	std::cout << DARK_GRAY << "[RobotomyRequestForm] default constructor" << WHITE << std::endl;
 }
 
 RobotomyRequestForm::RobotomyRequestForm ( const std::string target )
  : AForm("Robotomy Request", 72, 45), _target(target)
 {
-	std::cout << GREEN << "[RobotomyRequestForm] name constructor" << WHITE << std::endl;
+	std::cout << DARK_GRAY << "[RobotomyRequestForm] name constructor" << WHITE << std::endl;
 }
 
 RobotomyRequestForm::RobotomyRequestForm ( const RobotomyRequestForm & other )
  : AForm(other), _target(other._target)
 {
-	std::cout << GREEN << "[RobotomyRequestForm] copy constructor" << WHITE << std::endl;
+	std::cout << DARK_GRAY << "[RobotomyRequestForm] copy constructor" << WHITE << std::endl;
 }
 
 RobotomyRequestForm::~RobotomyRequestForm ( void )
 {
-	std::cout << RED << "[RobotomyRequestForm] destructor" << WHITE << std::endl;
+	std::cout << DARK_GRAY << "[RobotomyRequestForm] destructor" << WHITE << std::endl;
 }
 
 RobotomyRequestForm &	RobotomyRequestForm::operator= ( const RobotomyRequestForm & other )
 {
-	AForm::operator=(other);
-	//this->_target = other._target;
+	if (this != &other)
+	{
+		AForm::operator=(other);
+		//this->_target = other._target;
+	}
 	return *this;
 }
 

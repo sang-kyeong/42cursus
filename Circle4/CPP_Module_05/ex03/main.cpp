@@ -5,6 +5,7 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Color.hpp"
 
 int	main ( void )
 {
@@ -16,9 +17,9 @@ int	main ( void )
 		Bureaucrat		Kevin("Kevin", 138);
 		std::cout << Tom << std::endl << Kevin << std::endl;
 
-		ShrubberyCreationForm	form1("ShrubberyCreationForm");		// 145, 137
-		RobotomyRequestForm	form2("RobotomyRequestForm");			//  72,  45
-		PresidentialPardonForm	form3("PresidentialPardonForm");	//  25,   5
+		ShrubberyCreationForm	form1("sangkkim");		// 145, 137
+		RobotomyRequestForm	form2("minjekan");			//  72,  45
+		PresidentialPardonForm	form3("seongwch");	//  25,   5
 		std::cout << form1 << std::endl << form2 << std::endl << form3 << std::endl;
 
 		Kevin.signForm(form1);
@@ -34,5 +35,6 @@ int	main ( void )
 		President.signForm(form3);
 		President.executeForm(form3);
 	}
+	system("leaks ex02 | grep total");
 	return 0;
 }

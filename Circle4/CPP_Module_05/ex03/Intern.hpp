@@ -10,9 +10,6 @@
 class Intern
 {
 private:
-	AForm *	makeShrubberyCreationForm( const std::string form_name, const std::string target ) const;
-	AForm *	makeRobotomyRequestForm( const std::string form_name, const std::string target ) const;
-	AForm *	makePresidentialPardonForm( const std::string form_name, const std::string target ) const;
 
 protected:
 
