@@ -1,36 +1,39 @@
 #include <iostream>
 #include "Intern.hpp"
+#include "Color.hpp"
 
 
 Intern::Intern ( void )
 {
-	std::cout << GREEN << "[Intern] default constructor" << NORMAL << std::endl;
+	std::cout << GREEN << "[Intern] default constructor" << WHITE << std::endl;
 }
 
 Intern::Intern ( const Intern & other )
 {
-	std::cout << GREEN << "[Intern] copy constructor" << NORMAL << std::endl;
+	(void)other;
+	std::cout << GREEN << "[Intern] copy constructor" << WHITE << std::endl;
 }
 
 Intern::~Intern ( void )
 {
-	std::cout << RED << "[Intern] destructor" << NORMAL << std::endl;
+	std::cout << RED << "[Intern] destructor" << WHITE << std::endl;
 }
 
 Intern &	Intern::operator= ( const Intern & other )
 {
+	(void)other;
 	return *this;
 }
 
-AForm *	Intern::makeForm ( const std::string form_name, const std::string target )
+AForm *	Intern::makeForm ( const std::string form_name, const std::string target ) const
 {
-	AForm	*form;
-	int	number \
+	AForm	*form = NULL;
+	int	form_number \
 		= ((form_name == "shrubbery creation") * 1) \
 		+ ((form_name == "robotomy request") * 2) \
 		+ ((form_name == "presidential pardon") * 3);
 	
-	switch (number)
+	switch (form_number)
 	{
 	case 1:
 		form = new ShrubberyCreationForm(target);
@@ -44,8 +47,7 @@ AForm *	Intern::makeForm ( const std::string form_name, const std::string target
 	default :
 		std::cout << RED << "Intern didn't creates " << form_name << " form" << WHITE << std::endl;
 		return NULL;
-		break ;
 	}
 	std::cout << GREEN << "Intern creates " << form_name << " form" << WHITE << std::endl;
-	return from;
+	return form;
 }

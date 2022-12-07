@@ -6,8 +6,8 @@
 
 int	main ( void )
 {
-	// Exception in Constructor
-	std::cout << MAGENTA << "Exception in Constructor Test1" << NORMAL << std::endl;
+	
+	std::cout << std::endl << MAGENTA << "** Too Low Exception in Constructor Test **" << WHITE << std::endl;
 	try
 	{
 		Form	form("form", 1, 151);
@@ -17,11 +17,11 @@ int	main ( void )
 	{
 		std::cout << e.what() << std::endl;
 	}
-	// Exception in Constructor
-	std::cout << MAGENTA << "Exception in Constructor Test2" << NORMAL << std::endl;
+	
+	std::cout << std::endl << MAGENTA << "** Too High Exception in Constructor Test **" << WHITE << std::endl;
 	try
 	{
-		Form	form("form", 0, 151);
+		Form	form("form", 0, 1);
 		std::cout << form << std::endl;
 	}
 	catch (std::exception & e)
@@ -29,22 +29,25 @@ int	main ( void )
 		std::cout << e.what() << std::endl;
 	}
 	// Exception in sign
-	std::cout << std::endl << MAGENTA << "Exception in sign Test" << NORMAL << std::endl;
+	std::cout << std::endl << MAGENTA << "** Too Low Exception in sign Test **" << WHITE << std::endl;
 	{
-		Bureaucrat		Tom("Tom", 10);
-		Bureaucrat		Kevin("Kevin", 30);
-		std::cout << Tom << std::endl << Kevin << std::endl;
+		Bureaucrat		Maggot("Maggot", 42);
+		Form			form1("42 Secret", 42, 1);
+		Form			form2("Top Secret", 40, 1);
 
-		Form			form1("Top Secret", 1, 1);
-		Form			form2("Very Important", 20, 1);
-		Form			form3("42's dark Secret", 42, 42);
-		std::cout << form1 << std::endl << form2 << std::endl << form3 << std::endl;
+		
+		std::cout << Maggot << std::endl << form1 << std::endl << form2 << std::endl;
+		Maggot.signForm(form1);
+		Maggot.signForm(form2);
 
-		Kevin.signForm(form3);
-		Kevin.signForm(form2);
-		Tom.signForm(form2);
-		Tom.signForm(form1);
-		std::cout << form1 << std::endl << form2 << std::endl << form3 << std::endl;
+		std::cout << std::endl << MAGENTA << "** Already Signed Exception in sign Test **" << WHITE << std::endl;
+		std::cout << "increase" << std::endl;
+		Maggot.increaseGrade();
+		std::cout << "increase" << std::endl;
+		Maggot.increaseGrade();
+		std::cout << Maggot << std::endl << form1 << std::endl << form2 << std::endl;
+		Maggot.signForm(form1);
+		Maggot.signForm(form2);
 	}
 	return 0;
 }

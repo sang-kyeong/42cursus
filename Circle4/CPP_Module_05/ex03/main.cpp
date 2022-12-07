@@ -5,36 +5,32 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 #include "Color.hpp"
 
 int	main ( void )
 {
+	srand(time(NULL));
+	Intern	intern;
 	// Exception in sign
-	std::cout << std::endl << MAGENTA << "Exception in sign Test" << NORMAL << std::endl;
+	std::cout << std::endl << MAGENTA << "** Intern make form Test **" << WHITE << std::endl;
 	{
-		Bureaucrat		President("President", 1);
-		Bureaucrat		Tom("Tom", 72);
-		Bureaucrat		Kevin("Kevin", 138);
-		std::cout << Tom << std::endl << Kevin << std::endl;
-
-		ShrubberyCreationForm	form1("sangkkim");		// 145, 137
-		RobotomyRequestForm	form2("minjekan");			//  72,  45
-		PresidentialPardonForm	form3("seongwch");	//  25,   5
-		std::cout << form1 << std::endl << form2 << std::endl << form3 << std::endl;
-
-		Kevin.signForm(form1);
-		Kevin.executeForm(form1);
-		Kevin.increaseGrade();
-		Kevin.executeForm(form1);
-
-		Tom.executeForm(form1);
-		Tom.executeForm(form2);
-
-		President.signForm(form2);
-		President.executeForm(form2);
-		President.signForm(form3);
-		President.executeForm(form3);
+		std::cout << std::endl << MAGENTA << "** Shrubbery Creation **" << WHITE << std::endl;
+		AForm	*form;
+		form = intern.makeForm("shrubbery creation", "sangkkim");
+		std::cout << *form << std::endl;
+		delete form;
+		std::cout << std::endl << MAGENTA << "** Robotomy Request **" << WHITE << std::endl;
+		form = intern.makeForm("robotomy request", "minjekan");
+		std::cout << *form << std::endl;
+		delete form;
+		std::cout << std::endl << MAGENTA << "** Presidential Pardon **" << WHITE << std::endl;
+		form = intern.makeForm("presidential pardon", "seongwch");
+		std::cout << *form << std::endl;
+		delete form;
+		std::cout << std::endl << MAGENTA << "** Fail **" << WHITE << std::endl;
+		form = intern.makeForm("fail sangkkim", "sangkkim");
 	}
-	system("leaks ex02 | grep total");
+	system("leaks ex03 | grep total");
 	return 0;
 }
