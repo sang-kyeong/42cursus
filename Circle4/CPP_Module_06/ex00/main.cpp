@@ -1,7 +1,9 @@
 #include <iostream>
+#include <iomanip>
 #include "Convert.hpp"
 #include "Color.hpp"
 
+#include <iomanip>
 int main ( int argc, char *argv[] )
 {
 	if (argc != 2)
@@ -9,23 +11,29 @@ int main ( int argc, char *argv[] )
 		std::cout << RED << "convert get one parameter" << NORMAL << std::endl;
 		return 1;
 	}
-
-	switch (Convert::recognize_type(argv[1]))
+	else if (std::string(argv[1]).length() == 0)
 	{
-	case Convert::Character :
-		Convert::convert_char(argv[1]);
+		std::cout << RED << "empty string detected" << NORMAL << std::endl;
+		return 1;
+	}
+
+	std::cout << std::setprecision(1) << std::fixed;
+	switch (Convert::recognize_type(std::string(argv[1])))
+	{
+	case Convert::char_type :
+		Convert::convert(argv[1][1]);
 		break ;
-	case Convert::Integer :
-		Convert::convert_int(argv[1]);
+	case Convert::int_type :
+		Convert::convert(static_cast<int>(std::strtol(argv[1], NULL, 10)));
 		break ;
-	case Convert::Float :
-		Convert::convert_float(argv[1]);
+	case Convert::float_type :
+		Convert::convert(std::strtof(argv[1], NULL));
 		break ;
-	case Convert::Double :
-		Convert::convert_double(argv[1]);
+	case Convert::double_type :
+		Convert::convert(std::strtod(argv[1], NULL));
 		break ;
 	default :
-		Convert::convert_unknown(argv[1]);
+		Convert::convert();
 		break ;
 	}
 	return 0;

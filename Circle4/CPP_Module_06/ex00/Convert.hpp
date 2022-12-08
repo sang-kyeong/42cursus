@@ -7,19 +7,19 @@ namespace Convert
 {
 	typedef enum e_type
 	{
-		Character = 0,
-		Integer,
-		Float,
-		Double,
-		Unknown,
+		char_type = 0,
+		int_type,
+		float_type,
+		double_type,
+		unknown_type,
 	}	t_type;
 
-	t_type	recognize_type ( const std::string s );
-	void	convert_char ( const std::string s );
-	void	convert_int ( const std::string s );
-	void	convert_float ( const std::string s );
-	void	convert_double ( const std::string s );
-	void	convert_unknown ( const std::string s );
+	Convert::t_type	recognize_type ( const std::string literal );
+	void	convert ( char c_value );
+	void	convert ( int i_value );
+	void	convert ( float f_value );
+	void	convert ( double d_value );
+	void	convert ( void );
 }
 
 #endif//__CONVERT_H__
