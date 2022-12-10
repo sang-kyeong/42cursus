@@ -1,21 +1,38 @@
 #include <iostream>
 #include "ClapTrap.hpp"
 
-int main( void )
+int main( int argc, char *argv[] )
 {
 	std::string	name;
 
-	std::cout << "Enter your name" << std::endl;
-	std::cin >> name;
-	if (std::cin.fail())
+	if (argc != 2)
 		return (1);
-	ClapTrap	player(name), enemy("sangkkim");
+	ClapTrap	player(argv[1]), enemy("sangkkim");
 
+	player.showStatus();
+	enemy.showStatus();
+
+	std::cout << std::endl << std::endl;
 	for (int i = 0; i < 12; i++)
 	{
 		player.attack(enemy.getName());
 		enemy.takeDamage(player.getAttackDamage());
+	}
+
+	std::cout << std::endl << std::endl;
+	player.showStatus();
+	enemy.showStatus();
+
+	std::cout << std::endl << std::endl;
+	for (int i = 0; i < 12; i++)
+	{
 		enemy.beRepaired(enemy.getAttackDamage());
 	}
+
+	std::cout << std::endl << std::endl;
+	player.showStatus();
+	enemy.showStatus();
+
+	std::cout << std::endl << std::endl;
 	return (0);
 }

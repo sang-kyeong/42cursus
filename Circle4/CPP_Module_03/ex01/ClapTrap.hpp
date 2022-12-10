@@ -7,17 +7,13 @@ class ClapTrap
 {
 
 	protected:
-		
-		static const unsigned int	_max_hp = 10;
-		static const unsigned int	_max_ep = 10;
-		static const unsigned int	_default_dmg = 0;
 
 		std::string					_name;
 		unsigned int				_hit_points;
-		unsigned int				_energe_points;
+		unsigned int				_energy_points;
 		unsigned int				_attack_damage;
-
-		ClapTrap ( std::string name, unsigned int hp, unsigned int ep, unsigned int dmg);
+	
+		ClapTrap ( const std::string name, unsigned int hp, unsigned int ep, unsigned int dmg );
 
 	public:
 
@@ -25,16 +21,25 @@ class ClapTrap
 		ClapTrap ( std::string name );
 		ClapTrap ( const ClapTrap & other );
 
-		~ClapTrap ( void );
+		virtual ~ClapTrap ( void );
 
 		ClapTrap &	operator= ( const ClapTrap & other );
 
-		void	attack ( const std::string & target );
+		virtual void	attack ( const std::string & target );
 		void	takeDamage ( unsigned int amount );
 		void	beRepaired ( unsigned int amount );
 
-		const std::string &	getName (void);
-		unsigned int	getAttackDamage ( void );
+		const std::string &	getName (void) const;
+		unsigned int		getHitPoints ( void ) const;
+		unsigned int		getEnergyPoints ( void ) const;
+		unsigned int		getAttackDamage ( void ) const;
+
+		void		getName ( const std::string & name );
+		void		getHitPoints ( unsigned int points );
+		void		getEnergyPoints ( unsigned int points );
+		void		getAttackDamage ( unsigned int points );
+
+		void		showStatus ( void );
 
 };
 

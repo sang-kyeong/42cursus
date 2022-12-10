@@ -5,12 +5,9 @@
 
 class FragTrap : public ClapTrap
 {
+	private:
 
 	protected:
-		
-		static const unsigned int	_max_hp = 100;
-		static const unsigned int	_max_ep = 50;
-		static const unsigned int	_default_dmg = 30;
 
 	public:
 
@@ -22,9 +19,6 @@ class FragTrap : public ClapTrap
 
 		FragTrap &	operator= ( const FragTrap & other );
 
-		void	attack ( const std::string & target );
-		void	takeDamage ( unsigned int amount );
-		void	beRepaired ( unsigned int amount) ;
 		void	highFivesGuys ( void );
 
 };

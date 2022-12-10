@@ -9,16 +9,14 @@ typedef enum e_scavtrap_mode
 	gate_keeper_mode,
 }	t_scavtrap_mode;
 
-class ScavTrap : protected ClapTrap
+class ScavTrap : public ClapTrap
 {
 
-	protected:
-		
-		static const unsigned int	_max_hp = 100;
-		static const unsigned int	_max_ep = 50;
-		static const unsigned int	_default_dmg = 20;
+	private:
 
 		t_scavtrap_mode				_mode;
+
+	protected:
 
 	public:
 
@@ -31,13 +29,7 @@ class ScavTrap : protected ClapTrap
 		ScavTrap &	operator= ( const ScavTrap & other );
 
 		void	attack ( const std::string & target );
-		void	takeDamage ( unsigned int amount );
-		void	beRepaired ( unsigned int amount );
 		void	guardGate ( void );
-
-		const std::string &	getName (void);
-		unsigned int	getAttackDamage ( void );
-
 };
 
 #endif //__CLAPTRAP_H__

@@ -43,7 +43,7 @@ void	Convert::convert ( char c_value )
 	if (!isprint(static_cast<int>(c_value)))
 		std::cout << "char: Non displayable" << std::endl;
 	else
-		std::cout << "char: " << c_value << std::endl;
+		std::cout << "char: '" << c_value << "'" << std::endl;
 	
 	std::cout << "int: " << static_cast<int>(c_value) << std::endl;
 	std::cout << "float: " << static_cast<float>(c_value)  << "f" << std::endl;
@@ -57,7 +57,7 @@ void	Convert::convert ( int i_value )
 	else if (!isprint(i_value))
 		std::cout << "char: Non displayable" << std::endl;
 	else
-		std::cout << "char: " << static_cast<char>(i_value) << std::endl;
+		std::cout << "char: '" << static_cast<char>(i_value) << "'" << std::endl;
 
 	std::cout << "int: " << i_value << std::endl;
 	std::cout << "float: " << static_cast<float>(i_value)  << "f" << std::endl;
@@ -74,7 +74,7 @@ void	Convert::convert ( float f_value )
 		else if (!isprint(i_value))
 			std::cout << "char: Non displayable" << std::endl;
 		else
-			std::cout << "char: " << static_cast<char>(i_value) << std::endl;
+			std::cout << "char: '" << static_cast<char>(i_value) << "'" << std::endl;
 
 		std::cout << "int: " << i_value << std::endl;
 	}
@@ -98,7 +98,7 @@ void	Convert::convert ( double d_value )
 		else if (!isprint(i_value))
 			std::cout << "char: Non displayable" << std::endl;
 		else
-			std::cout << "char: " << static_cast<char>(i_value) << std::endl;
+			std::cout << "char: '" << static_cast<char>(i_value) << "'" << std::endl;
 
 		std::cout << "int: " << i_value << std::endl;
 	}

@@ -3,15 +3,16 @@
 #include "Color.hpp"
 
 template < typename T >
-Array<T>::Array ( void ) : _size(0)
+Array<T>::Array ( void ) : _data(NULL), _size(0)
 {
 	std::cout << BLACK << "[Array] default constructor" << NORMAL << std::endl;
 }
 
 template < typename T >
-Array<T>::Array ( unsigned int n ) : _size(n)
+Array<T>::Array ( unsigned int n ) : _data(NULL), _size(n)
 {
-	this->_data = n == 0 ? NULL : new T[n];
+	if (n != 0)
+		this->_data = new T[n];
 	std::cout << BLACK << "[Array] n constructor" << NORMAL << std::endl;
 }
 
@@ -19,7 +20,7 @@ template < typename T >
 Array<T>::Array ( const Array & other ) : _size(other._size)
 {
 	std::cout << BLACK << "[Array] copy constructor" << NORMAL << std::endl;
-	if (other._size == 0)
+	if (this->_size == 0)
 		this->_data = NULL;
 	else
 	{
@@ -45,18 +46,16 @@ Array<T> &	Array<T>::operator= ( const Array & other )
 
 	if (this->_data != NULL)
 		delete[] this->_data;
+	this->_size = other._size;
 
-	if (other->_size == 0)
-	{
-		this->_size = 0;
+	if (this->_size == 0)
 		this->_data = NULL;
-		return *this;
+	else
+	{
+		this->_data = new T[this->_size];
+		for (unsigned int i = 0; i < this->_size; i++)
+			(*this)[i] = other[i];
 	}
-
-	this->_size = other->_size;
-	this->_data = new T[this->_size];
-	for (unsigned int i = 0; i < this->_size; i++)
-		(*this)[i] = other[i];
 	return *this;
 }
 
