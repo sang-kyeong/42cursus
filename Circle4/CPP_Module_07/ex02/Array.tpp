@@ -3,17 +3,16 @@
 #include "Color.hpp"
 
 template < typename T >
-Array<T>::Array ( void ) : _data(NULL), _size(0)
+Array<T>::Array ( void ) : _size(0)
 {
 	std::cout << BLACK << "[Array] default constructor" << NORMAL << std::endl;
-	
 }
 
 template < typename T >
-Array<T>::Array ( unsigned int n ) : _data(new T[n]), _size(n)
+Array<T>::Array ( unsigned int n ) : _size(n)
 {
+	this->_data = n == 0 ? NULL : new T[n];
 	std::cout << BLACK << "[Array] n constructor" << NORMAL << std::endl;
-
 }
 
 template < typename T >
