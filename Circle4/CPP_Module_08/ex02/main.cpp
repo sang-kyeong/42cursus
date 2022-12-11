@@ -3,8 +3,14 @@
 #include <list>
 #include "MutantStack.hpp"
 
+void	test_leaks ( void )
+{
+	system("leaks ex02 | grep total");
+}
+
 int	main ( void )
 {
+	atexit(test_leaks);
 	std::cout << MAGENTA << "** Default test (deque) **" << NORMAL << std::endl;
 	{
 		MutantStack<int> mstack;
