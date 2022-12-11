@@ -5,6 +5,7 @@
 
 int	main ( void )
 {
+	std::cout << MAGENTA << "** Default test (deque) **" << NORMAL << std::endl;
 	{
 		MutantStack<int> mstack;
 
@@ -35,6 +36,7 @@ int	main ( void )
 		std::stack<int> s(mstack);
 	}
 
+	std::cout << MAGENTA << "** Use vector container **" << NORMAL << std::endl;
 	{
 		MutantStack<int, std::vector<int> > mstack;
 
@@ -56,6 +58,7 @@ int	main ( void )
 		}
 	}
 
+	std::cout << MAGENTA << "** Use list container **" << NORMAL << std::endl;
 	{
 		MutantStack<int, std::list<int> > mstack;
 		mstack.push(5);									// [5]
