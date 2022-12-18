@@ -1,34 +1,39 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/08/17 22:22:10 by sangkkim          #+#    #+#              #
-#    Updated: 2022/08/27 18:04:56 by sangkkim         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME := philo_bonus
-
-SRCS := main_bonus.c init_sim_bonus.c utils1_bonus.c
-
-INCS := philo_bonus.h
 
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
 
-$(NAME) : $(SRCS) $(INCS)
-	$(CC) $(CFLAGS) -o $@ $(SRCS)
+CXX := c++
+CXXFLAGS := -Wall -Wextra -Werror
+
+CPPFLAGS := -MMD
+
+# RM := rm -f
+
+SRCS = philo.c get_condition.c init_simulation.c monitor_main.c
+OBJS := $(SRCS:.c=.o)
+DEPS := $(SRCS:.c=.d)
+
+# %.o : %.cpp
+# 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
+
+# %.o : %.c
+# 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+
+$(NAME) : $(OBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS)
 
 .PHONY : all clean fclean re
 
 all : $(NAME)
 
 clean :
+	$(RM) $(OBJS)
+	$(RM) $(DEPS)
 
 fclean : clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re : fclean all
+
+-include $(DEPS)

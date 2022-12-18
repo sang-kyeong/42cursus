@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_main_bonus.c                                 :+:      :+:    :+:   */
+/*   error_code.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/17 22:29:38 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/08/18 16:52:26 by sangkkim         ###   ########seoul.kr  */
+/*   Created: 2022/12/18 17:59:04 by sangkkim          #+#    #+#             */
+/*   Updated: 2022/12/18 22:48:06 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_bonus.h"
+#ifndef ERROR_CODE_H
+# define ERROR_CODE_H
 
-int	philo_main_bonus(t_sim sim)
-{
-	t_philo	philo;
-	size_t	time;
+# define SUCCESS				0
+# define INVALID_ARGUMENT		1
+# define OUT_OF_RANGE			2
+# define MALLOC_FAIL			3
 
-	while (philo.status != died)
-	{
-		sem_wait(sim.mutex);
-		time = get_ms_from(sim.start_time);
-		philo_action(&philo, time);
-		sem_wait(sim.mutex);
-		usleep(10);
-	}
-	return (0);
-}
+#endif//ERROR_CODE_H

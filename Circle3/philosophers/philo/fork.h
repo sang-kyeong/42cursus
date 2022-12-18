@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_bonus.h                                      :+:      :+:    :+:   */
+/*   fork.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/18 16:36:50 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/08/18 16:39:40 by sangkkim         ###   ########seoul.kr  */
+/*   Created: 2022/12/18 17:40:37 by sangkkim          #+#    #+#             */
+/*   Updated: 2022/12/18 17:47:02 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_BONUS_H
-# define UTILS_BONUS_H
+#ifndef FORK_H
+# define FORK_H
 
-# include <sys/time.h>
-# include <stddef.h>
+# include <pthread.h>
 
-// utils1_bonus.c
-size_t	get_ms_from(struct timeval from);
-void	ft_putstr_fd(char *str, int fd);
-void	ft_putunbr_fd(size_t n, int fd);
-int		parse_uint(unsigned int *ptr, char *str);
+typedef enum e_status_fork		t_status_fork;
+typedef struct s_fork			t_fork;
 
-#endif
+enum e_status_fork
+{
+	available = 0,
+	unavailable,
+};
+
+struct s_fork
+{
+	t_status_fork		status;
+	pthread_mutex_t		*mutex_fork;
+};
+
+#endif//FORK_H

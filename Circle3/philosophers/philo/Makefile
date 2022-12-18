@@ -1,32 +1,39 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/08/23 14:26:23 by sangkkim          #+#    #+#              #
-#    Updated: 2022/10/11 16:36:40 by sangkkim         ###   ########seoul.kr   #
-#                                                                              #
-# **************************************************************************** #
+NAME := philo
 
-NAME = philo
-SRCS = main.c get_input.c init_sim.c philo_main.c philo_action.c utils.c
-INCS = philo.h
+CC := cc
+CFLAGS := -Wall -Wextra -Werror
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CXX := c++
+CXXFLAGS := -Wall -Wextra -Werror
 
-$(NAME) : $(SRCS) $(INCS)
-	$(CC) $(CFLAGS) -o $(NAME) $(SRCS)
+CPPFLAGS := -MMD
+
+# RM := rm -f
+
+SRCS = philo.c get_condition.c init_simulation.c monitor_main.c
+OBJS := $(SRCS:.c=.o)
+DEPS := $(SRCS:.c=.d)
+
+# %.o : %.cpp
+# 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
+
+# %.o : %.c
+# 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+
+$(NAME) : $(OBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS)
 
 .PHONY : all clean fclean re
 
 all : $(NAME)
 
 clean :
+	$(RM) $(OBJS)
+	$(RM) $(DEPS)
 
 fclean : clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re : fclean all
+
+-include $(DEPS)
