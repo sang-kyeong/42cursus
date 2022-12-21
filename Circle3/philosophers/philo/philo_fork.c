@@ -6,7 +6,7 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:41:21 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/12/21 21:14:59 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/12/21 22:39:30 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_simulation_status	philo_wait_a_fork(t_philo *philo, t_philo_hand *hand)
 {
 	t_simulation_status	sim_status;
 
-	while (hand->status == hand_empty)
+	while (sim_status == sim_running && hand->status == hand_empty)
 	{
 		sim_status = philo_try_a_fork(philo, hand);
 		usleep(100);
@@ -63,6 +63,7 @@ t_simulation_status	philo_wait_both_forks(t_philo *philo)
 			sim_status = philo_try_a_fork(philo, &(philo->right_hand));
 		if (sim_status != sim_running)
 			break ;
+		usleep(100);
 	}
 	return (sim_status);
 }
