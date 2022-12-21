@@ -6,114 +6,108 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:23:27 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/12/18 22:48:42 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/12/21 19:38:32 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <pthread.h>
 #include <string.h>
+#include "condition.h"
+#include "fork.h"
+#include "philo.h"
 #include "simulation.h"
 #include "error_code.h"
 
-void		*philo_main(void *arg);
+static int	allocate_memory(t_simulation *sim, long long philo_num);
+static int	init_mutexes(t_simulation *sim, t_fork *forks, t_philo *philos);
+static int	init_forks_and_philos(t_simulation *sim, \
+	t_fork *forks, t_philo *philos);
 
-static int	allocate_memory(t_simulation *simulation, size_t size);
-static int	init_shared_variables(t_simulation *simulation);
-static int	init_forks(t_fork *forks, size_t size);
-static int	init_philo_infos(t_philo_info *infos, t_simulation *simulation);
-
-int	init_simulation(t_simulation *simulation)
+int	init_simulation(t_simulation *sim)
 {
 	int	err;
 
-	err = allocate_memory(\
-		simulation, simulation->condition.number_of_philosophers);
-	if (err == SUCCESS)
-		err = init_shared_variables(simulation);
-	if (err == SUCCESS)
-		err = init_forks(\
-			simulation->forks, simulation->condition.number_of_philosophers);
-	if (err == SUCCESS)
-		err = init_philo_infos(simulation->philo_infos, simulation);
+	if (sim->condition.must_eat == 0)
+		sim->type = sim_until_done;
+	err = allocate_memory(sim, sim->condition.philo_num);
+	if (err == 0)
+		err = init_mutexes(sim, sim->forks, sim->philos);
+	if (err == 0)
+		err = init_forks_and_philos(sim, sim->forks, sim->philos);
+	return (0);
+}
+
+static int	allocate_memory(t_simulation *sim, long long philo_num)
+{
+	sim->mutexes = malloc(((2 * philo_num) + 2) * sizeof(pthread_mutex_t));
+	if (sim->threads == NULL)
+		return (MALLOC_FAIL);
+	memset(sim->mutexes, 0, ((2 * philo_num) + 2) * sizeof(pthread_mutex_t));
+	sim->threads = malloc(philo_num * sizeof(pthread_t));
+	if (sim->threads == NULL)
+		return (MALLOC_FAIL);
+	memset(sim->threads, 0, philo_num * sizeof(pthread_t));
+	sim->forks = malloc(philo_num * sizeof(t_fork));
+	if (sim->forks == NULL)
+		return (MALLOC_FAIL);
+	memset(sim->forks, 0, philo_num * sizeof(t_fork));
+	sim->philos = malloc(philo_num * sizeof(t_philo));
+	if (sim->philos == NULL)
+		return (MALLOC_FAIL);
+	memset(sim->philos, 0, philo_num * sizeof(t_philo));
 	return (SUCCESS);
 }
 
-static int	allocate_memory(t_simulation *simulation, size_t size)
+static int	init_mutexes(t_simulation *sim, t_fork *forks, t_philo *philos)
 {
-	simulation->thread_ids = malloc(size * sizeof(pthread_t));
-	if (simulation->thread_ids == NULL)
-		return (MALLOC_FAIL);
-	memset(simulation->thread_ids, 0, size * sizeof(pthread_t));
-	simulation->forks = malloc(size * sizeof(pthread_t));
-	if (simulation->forks == NULL)
-		return (MALLOC_FAIL);
-	memset(simulation->forks, 0, size * sizeof(t_fork));
-	simulation->philo_infos = malloc(size * sizeof(pthread_t));
-	if (simulation->philo_infos == NULL)
-		return (MALLOC_FAIL);
-	memset(simulation->philo_infos, 0, size * sizeof(t_philo_info));
-	return (SUCCESS);
-}
+	long long	i;
+	int			err;
 
-static int	init_shared_variables(t_simulation *simulation)
-{
-	int	err;
-
-	err = pthread_mutex_init(&(simulation->mutex_simulation), 0);
-	if (err == SUCCESS)
-		err = pthread_mutex_init(&(simulation->mutex_print), 0);
-	if (err == SUCCESS)
-	{
-		simulation->progress = simulation->condition.number_of_philosophers;
-		pthread_mutex_lock(&simulation->mutex_simulation);
-	}
-	return (err);
-}
-
-static int	init_forks(t_fork *forks, size_t size)
-{
-	size_t	i;
-	int		err;
-
-	err = SUCCESS;
+	err = pthread_mutex_init(&(sim->mutexes[0]), NULL);
+	if (err != 0)
+		return (err);
+	err = pthread_mutex_init(&(sim->mutexes[1]), NULL);
+	if (err != 0)
+		return (err);
 	i = 0;
-	while (i < size)
+	while (i < sim->condition.philo_num)
 	{
-		err = pthread_mutex_init(forks[i].mutex_fork, 0);
-		if (err != 0)
-			break ;
-		forks[i].status = available;
-		i++;
-	}
-	return (err);
-}
-
-static int	init_philo_infos(t_philo_info *infos, t_simulation *simulation)
-{
-	size_t	i;
-	int		err;
-
-	i = 0;
-	while (i < simulation->condition.number_of_philosophers)
-	{
-		infos[i].id = i + 1;
-		infos[i].deadline = simulation->condition.time_to_die;
-		infos[i].eat_cnt = 0;
-		infos[i].right_fork = &(simulation->forks[i]);
-		infos[i].right_hand = empty;
-		infos[i].left_fork = &(simulation->forks[(i + 1) % \
-			simulation->condition.number_of_philosophers]);
-		infos[i].left_hand = empty;
-		infos[i].mutex_simulation = &(simulation->mutex_simulation);
-		infos[i].mutex_print = &(simulation->mutex_print);
-		infos[i].simulation_progress = &(simulation->progress);
-		infos[i].simulation_condition = &(simulation->condition);
-		err = pthread_create(&(simulation->thread_ids[i]), \
-			NULL, philo_main, NULL);
+		err = pthread_mutex_init(&(sim->mutexes[i + 2]), NULL);
 		if (err != 0)
 			return (err);
+		err = pthread_mutex_init(\
+			&(sim->mutexes[i + 2 + sim->condition.philo_num]), NULL);
+		if (err != 0)
+			return (err);
+	}
+	sim->mutex_sim_status = &(sim->mutexes[0]);
+	sim->mutex_sim_full_philo = &(sim->mutexes[1]);
+	return (0);
+}
+
+static int	init_forks_and_philos(t_simulation *sim, \
+	t_fork *forks, t_philo *philos)
+{
+	long long	i;
+
+	i = 0;
+	while (i < sim->condition.philo_num)
+	{
+		forks[i].mutex_fork = &(sim->mutexes[i + 2]);
+		philos[i].id = i + 1;
+		philos[i].sim_start_time = &(sim->start_time);
+		philos[i].right_hand.fork = &(sim->forks[i]);
+		philos[i].left_hand.fork = \
+			&(sim->forks[(i + 1) % sim->condition.philo_num]);
+		philos[i].condition = &(sim->condition);
+		philos[i].sim_status = &(sim->status);
+		philos[i].mutex_sim_status = &(sim->mutex_sim_status);
+		philos[i].sim_full_philo = &(sim->full_philo);
+		philos[i].mutex_sim_full_philo = &(sim->mutex_sim_full_philo);
+		philos[i].mutex_philo_time = \
+			&(sim->mutexes[i + 2 + sim->condition.philo_num]);
 		i++;
 	}
-	return (SUCCESS);
+	return (0);
 }

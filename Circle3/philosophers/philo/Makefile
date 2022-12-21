@@ -1,7 +1,7 @@
 NAME := philo
 
 CC := cc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := #-Wall -Wextra -Werror
 
 CXX := c++
 CXXFLAGS := -Wall -Wextra -Werror
@@ -10,15 +10,16 @@ CPPFLAGS := -MMD
 
 # RM := rm -f
 
-SRCS = philo.c get_condition.c init_simulation.c monitor_main.c
+SRCS := main.c get_condition.c init_simulation.c monitor_main.c util_time.c \
+	philo_main.c philo_echo.c philo_fork.c
 OBJS := $(SRCS:.c=.o)
 DEPS := $(SRCS:.c=.d)
 
-# %.o : %.cpp
-# 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
-
 # %.o : %.c
 # 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+
+# %.o : %.cpp
+# 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
 
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS)

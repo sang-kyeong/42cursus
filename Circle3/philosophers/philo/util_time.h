@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_code.h                                       :+:      :+:    :+:   */
+/*   util_time.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 17:59:04 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/12/20 19:49:31 by sangkkim         ###   ########seoul.kr  */
+/*   Created: 2022/12/20 20:55:40 by sangkkim          #+#    #+#             */
+/*   Updated: 2022/12/21 15:33:33 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_CODE_H
-# define ERROR_CODE_H
+#ifndef UTIL_TIME_H
+# define UTIL_TIME_H
 
-# define SUCCESS				0
-# define FAIL					1
-# define INVALID_ARGUMENT		2
-# define OUT_OF_RANGE			3
-# define MALLOC_FAIL			4
+# include <sys/time.h>
+# include <stddef.h>
 
-#endif//ERROR_CODE_H
+long long	get_ms_from(struct timeval from);
+void		wait_until_timeval(struct timeval until);
+void		wait_until_ms(size_t until);
+
+#endif//UTIL_TIME_H
