@@ -6,12 +6,12 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 19:34:44 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/12/21 15:36:20 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/12/22 15:40:53 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
-#include "condition.h"
+#include "simulation.h"
 #include "error_code.h"
 
 static int	parse_argument(unsigned int *uint_ptr, char *str);

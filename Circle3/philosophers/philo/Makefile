@@ -11,7 +11,7 @@ CPPFLAGS := -MMD
 # RM := rm -f
 
 SRCS := main.c get_condition.c init_simulation.c monitor_main.c util_time.c \
-	philo_main.c philo_echo.c philo_fork.c
+	philo_main.c philo_echo.c
 OBJS := $(SRCS:.c=.o)
 DEPS := $(SRCS:.c=.d)
 

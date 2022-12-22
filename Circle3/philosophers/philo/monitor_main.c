@@ -6,14 +6,13 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:44:37 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/12/21 19:39:25 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/12/22 16:14:02 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <pthread.h>
 #include <stddef.h>
-#include "condition.h"
 #include "fork.h"
 #include "philo.h"
 #include "simulation.h"
@@ -22,7 +21,7 @@
 
 t_simulation_status			philo_echo_die(t_philo *philo);
 
-static t_simulation_status	check_philo(t_philo *philo);
+t_simulation_status			check_philo(t_philo *philo);
 static t_simulation_status	check_full_philo(t_simulation *sim);
 
 int	monitor_main(t_simulation *sim)
@@ -47,13 +46,13 @@ int	monitor_main(t_simulation *sim)
 	return (SUCCESS);
 }
 
-static t_simulation_status	check_philo(t_philo *philo)
+t_simulation_status	check_philo(t_philo *philo)
 {
 	t_simulation_status	status;
 
 	status = sim_running;
 	pthread_mutex_lock(philo->mutex_philo_time);
-	if (get_ms_from(philo->last_eat_time) >= philo->condition->time_to_die)
+	if (get_ms_from(philo->last_eat_time) >= philo->sim_condition->time_to_die)
 		status = philo_echo_die(philo);
 	pthread_mutex_unlock(philo->mutex_philo_time);
 	return (status);

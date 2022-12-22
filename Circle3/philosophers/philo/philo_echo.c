@@ -6,16 +6,17 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 21:02:19 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/12/21 21:15:33 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/12/22 16:13:20 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "condition.h"
 #include "fork.h"
 #include "philo.h"
 #include "simulation.h"
 #include "util_time.h"
+
+t_simulation_status	check_philo(t_philo *philo);
 
 t_simulation_status	philo_echo_take_fork(t_philo *philo)
 {
@@ -36,11 +37,10 @@ t_simulation_status	philo_echo_eat(t_philo *philo)
 {
 	t_simulation_status	sim_status;
 
+	sim_status = check_philo(philo);
+	if (sim_status != sim_running)
+		return (sim_status);
 	pthread_mutex_lock(philo->mutex_philo_time);
-	if (get_ms_from(philo->last_eat_time) >= philo->condition->time_to_die)
-		sim_status = sim_closing_died;
-	else
-		sim_status = sim_running;
 	gettimeofday(&(philo->last_eat_time), NULL);
 	pthread_mutex_unlock(philo->mutex_philo_time);
 	pthread_mutex_lock(philo->mutex_sim_status);
@@ -61,6 +61,18 @@ t_simulation_status	philo_echo_sleep(t_philo *philo)
 {
 	t_simulation_status	sim_status;
 
+	if (++(philo->eat_cnt) == philo->sim_condition->must_eat)
+	{
+		pthread_mutex_lock(philo->mutex_sim_full_philo);
+		if (++*(philo->sim_full_philo) == philo->sim_condition->philo_num)
+		{
+			pthread_mutex_lock(philo->mutex_sim_status);
+			if (*(philo->sim_status) == sim_running)
+				*(philo->sim_status) = sim_closing_done;
+			pthread_mutex_unlock(philo->mutex_sim_status);
+		}
+		pthread_mutex_unlock(philo->mutex_sim_full_philo);
+	}
 	pthread_mutex_lock(philo->mutex_sim_status);
 	sim_status = *(philo->sim_status);
 	if (sim_status == sim_running)

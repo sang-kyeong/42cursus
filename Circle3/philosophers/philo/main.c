@@ -6,14 +6,13 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 17:32:43 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/12/21 22:31:38 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/12/22 16:09:17 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/time.h>
 #include <string.h>
 #include <stdlib.h>
-#include "condition.h"
 #include "fork.h"
 #include "philo.h"
 #include "simulation.h"
@@ -27,6 +26,7 @@ int		init_simulation(t_simulation *sim);
 int		run_simulation(t_simulation *sim);
 int		terminate_simulation(t_simulation *sim);
 
+#include <stdio.h>
 int	main(int argc, char *argv[])
 {
 	int				err;
@@ -42,6 +42,8 @@ int	main(int argc, char *argv[])
 		err = monitor_main(&sim);
 	if (err == 0)
 		err = terminate_simulation(&sim);
+	if (err != 0)
+		perror("ERROR");
 	return (err);
 }
 
@@ -78,9 +80,16 @@ int	terminate_simulation(t_simulation *sim)
 	i = 0;
 	err = 0;
 	while (err == 0 && i < sim->condition.philo_num)
+		err = pthread_detach(sim->threads[i++]);
+	i = 0;
+	while (err == 0 && i < 2 + (2 * sim->condition.philo_num))
+		err = pthread_mutex_destroy(&(sim->mutexes[i++]));
+	if (err == 0)
 	{
-		err = pthread_detach(sim->threads[i]);
-		i++;
+		free(sim->threads);
+		free(sim->mutexes);
+		free(sim->forks);
+		free(sim->philos);
 	}
 	return (err);
 }

@@ -6,14 +6,13 @@
 /*   By: sangkkim <sangkkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:23:27 by sangkkim          #+#    #+#             */
-/*   Updated: 2022/12/21 22:30:54 by sangkkim         ###   ########seoul.kr  */
+/*   Updated: 2022/12/22 15:41:02 by sangkkim         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <pthread.h>
 #include <string.h>
-#include "condition.h"
 #include "fork.h"
 #include "philo.h"
 #include "simulation.h"
@@ -100,7 +99,7 @@ static int	init_forks_and_philos(t_simulation *sim, \
 		philos[i].right_hand.fork = &(sim->forks[i]);
 		philos[i].left_hand.fork = \
 			&(sim->forks[(i + 1) % sim->condition.philo_num]);
-		philos[i].condition = &(sim->condition);
+		philos[i].sim_condition = &(sim->condition);
 		philos[i].sim_status = &(sim->status);
 		philos[i].mutex_sim_status = sim->mutex_sim_status;
 		philos[i].sim_full_philo = &(sim->full_philo);
