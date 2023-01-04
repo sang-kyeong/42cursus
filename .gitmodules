@@ -1,3 +1,9 @@
 [submodule "libft"]
 	path = libft
 	url = git@github.com:42sangkkim/42cursus-Libft.git
+[submodule "miniRT"]
+	path = miniRT
+	url = git@github.com:42sangkkim/42cursus-miniRT.git
+[submodule "get_next_line"]
+	path = get_next_line
+	url = git@github.com:42sangkkim/42cursus-get_next_line.git
