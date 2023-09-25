@@ -10,3 +10,6 @@
 [submodule "ft_containers"]
 	path = ft_containers
 	url = git@github.com:42sangkkim/42cursus-ft_containers.git
+[submodule "Circle1/get_next_line"]
+	path = Circle1/get_next_line
+	url = git@github.com:42sangkkim/42cursus-get_next_line.git
