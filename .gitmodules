@@ -1,36 +1,27 @@
-[submodule "libft"]
-	path = libft
-	url = git@github.com:42sangkkim/42cursus-Libft.git
-[submodule "miniRT"]
-	path = miniRT
-	url = git@github.com:42sangkkim/42cursus-miniRT.git
-[submodule "get_next_line"]
-	path = get_next_line
-	url = git@github.com:42sangkkim/42cursus-get_next_line.git
-[submodule "ft_containers"]
-	path = ft_containers
-	url = git@github.com:42sangkkim/42cursus-ft_containers.git
-[submodule "Circle1/get_next_line"]
-	path = Circle1/get_next_line
-	url = git@github.com:42sangkkim/42cursus-get_next_line.git
 [submodule "Circle0/Libft"]
 	path = Circle0/Libft
 	url = git@github.com:42sangkkim/42cursus-Libft.git
-[submodule "Circle1/Born2beroot"]
-	path = Circle1/Born2beroot
-	url = git@github.com:42sangkkim/42cursus-Born2beroot.git
+[submodule "Circle1/get_next_line"]
+	path = Circle1/get_next_line
+	url = git@github.com:42sangkkim/42cursus-get_next_line.git
 [submodule "Circle1/ft_printf"]
 	path = Circle1/ft_printf
 	url = git@github.com:42sangkkim/42cursus-ft_printf.git
+[submodule "Circle1/Born2beroot"]
+	path = Circle1/Born2beroot
+	url = git@github.com:42sangkkim/42cursus-Born2beroot.git
 [submodule "Circle2/minitalk"]
 	path = Circle2/minitalk
 	url = git@github.com:42sangkkim/42cursus-minitalk.git
 [submodule "Circle2/pushswap"]
 	path = Circle2/pushswap
 	url = git@github.com:42sangkkim/42cursus-push_swap.git
-[submodule "Circle2/push_swap"]
-	path = Circle2/push_swap
-	url = git@github.com:42sangkkim/42cursus-push_swap.git
 [submodule "Circle2/FdF"]
 	path = Circle2/FdF
 	url = git@github.com:42sangkkim/42cursus-FdF.git
+[submodule "Circle3/Philosophers"]
+	path = Circle3/Philosophers
+	url = git@github.com:42sangkkim/42cursus-Philosophers.git
+[submodule "Circle3/minishell"]
+	path = Circle3/minishell
+	url = git@github.com:42sangkkim/minishell.git
