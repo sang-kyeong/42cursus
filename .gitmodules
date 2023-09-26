@@ -25,3 +25,18 @@
 [submodule "Circle3/minishell"]
 	path = Circle3/minishell
 	url = git@github.com:42sangkkim/minishell.git
+[submodule "Circle4/miniRT"]
+	path = Circle4/miniRT
+	url = git@github.com:42sangkkim/42cursus-miniRT.git
+[submodule "Circle5/Inception"]
+	path = Circle5/Inception
+	url = git@github.com:42sangkkim/42cursus-Inception.git
+[submodule "Circle5/webserv"]
+	path = Circle5/webserv
+	url = git@github.com:42sangkkim/42cursus-webserv.git
+[submodule "Circle5/ft_containers"]
+	path = Circle5/ft_containers
+	url = git@github.com:42sangkkim/42cursus-ft_containers.git
+[submodule "Circle6/ft_transcendence"]
+	path = Circle6/ft_transcendence
+	url = git@github.com:42sangkkim/42cursus-ft_transcendence.git
