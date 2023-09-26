@@ -13,3 +13,12 @@
 [submodule "Circle1/get_next_line"]
 	path = Circle1/get_next_line
 	url = git@github.com:42sangkkim/42cursus-get_next_line.git
+[submodule "Circle0/Libft"]
+	path = Circle0/Libft
+	url = git@github.com:42sangkkim/42cursus-Libft.git
+[submodule "Circle1/Born2beroot"]
+	path = Circle1/Born2beroot
+	url = git@github.com:42sangkkim/42cursus-Born2beroot.git
+[submodule "Circle1/ft_printf"]
+	path = Circle1/ft_printf
+	url = git@github.com:42sangkkim/42cursus-ft_printf.git
